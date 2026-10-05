@@ -1,0 +1,23 @@
+[project]
+name = "ontology-poc"
+version = "0.1.0"
+description = "Local POC: ontology-grounded vs chunk RAG on FinanceBench with a self-hosted open model"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "mlx-lm>=0.28",
+    "openai>=1.50",
+    "httpx>=0.27",
+    "anthropic>=0.60",
+    "duckdb>=1.1",
+    "lancedb>=0.15",
+    "pyarrow>=17",
+    "pymupdf>=1.24",
+    "sentence-transformers>=3.0",
+    "pandas>=2.2",
+    "python-dotenv>=1.0",
+    "rich>=13",
+    "pytz>=2026.4",
+]
+
+[tool.uv]
+package = false
