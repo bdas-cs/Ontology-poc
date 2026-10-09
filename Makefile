@@ -90,7 +90,7 @@ telemetry-watch:  ## continuous, every 60 s
 telemetry-report: ## summary JSON + SQL Q&A over the view
 	uv run python -m poc.telemetry.report
 
-ontology-ingest:  ## build ontology (needs `make pages`; reuses chunk LanceDB vectors)
+ontology-ingest:  ## build ontology (needs `make pages`; ONTO_DOCS=file restricts to a doc subset; Bharat: GOV_EXTRACT_DOCS=file caps extraction)
 	LLM_MAX_INFLIGHT=$(or $(INFLIGHT),16) uv run python -m poc.ontology.ingest all
 
 ontology-extract: ## LLM statement extraction only (skips cached statements)

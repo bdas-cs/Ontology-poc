@@ -8,8 +8,8 @@ The ontology-grounded arm is split into a **generic driver** and a **domain plug
 | `poc/retrieval/grounded/pipeline.py`: the 5 steps, plan LLM call, scoped hybrid search, answer LLM call, output row | entity resolution, value-free planner catalogue + planner prompt, plan -> SQL execution, evidence rendering + answer prompt |
 | `poc/ontology/runtime.py`: `Usage`, `chat` (LLM with infra retries), `ro()`/`rw()` DuckDB connections, `safe_eval`, `slug`, `squeeze`, `page_view` | |
 
-Existing plugins: `finance` (FinanceBench, DocFinQA) and `contracts` (CUAD). `gov` (Bharat) is registered but
-not implemented yet; selecting it fails with a clear "plugin not implemented" message.
+Existing plugins: `finance` (FinanceBench, DocFinQA), `contracts` (CUAD) and `gov` (Bharat; see
+`poc/ontology/domains/gov.py` and the section at the end).
 
 ## Selecting the domain
 
@@ -133,12 +133,25 @@ The proposal is in `~/ontology-poc-data/bharat/gov_ontology_proposal.md`. Mapped
 | `execute` | SQL over the fact tables, then arithmetic via `safe_eval`; records need `id`, `doc` and `page`. |
 | `evidence_block` / `ANSWER_SYS` | Records with units (₹ lakh/crore), FY and jurisdiction, plus passages. The answer prompt must allow source-language quotes. |
 
-Test it the same way as the others:
+Implemented in `poc/ontology/domains/gov.py` (pragmatic subset: `jurisdiction`, `authority`, `document`,
+`scheme` with `same_as`, `benefit`, `eligibility`, `requirement`, `date_event`, `budget_line`, `tax_provision`,
+`figure`). Resolution is BM25 + rules over per-document name cards (titles, English glosses, URL slug, host, state,
+issuer, reference no., FY, first-page scheme / authority names), with an LLM pick among the top 12 when the rules are
+not decisive. Plan keys are `S/B/E/P/D/L/X/F<n>` (or `E*` for a whole type) plus `vars` / `calc` / `search`.
+
+Ingest knobs: `--docs FILE` / `ONTO_DOCS=FILE` restricts every step to a doc subset (any domain);
+`GOV_EXTRACT_DOCS=FILE` restricts the full extraction and gives every other document a cheap first-pages "card" pass
+(`GOV_CARD_PASS=0` disables it); `GOV_WINDOW_CHARS` (12000), `GOV_MAX_WINDOWS` (12). Legacy-font documents are skipped.
 
 ```
-POC_DATASET=bharat uv run python -m poc.ontology.ingest all --only DOC1 DOC2
+POC_DATASET=bharat uv run python -m poc.ontology.ingest base                    # all documents, no LLM
+POC_DATASET=bharat uv run python -m poc.ontology.ingest extract --docs docs.txt
+POC_DATASET=bharat uv run python -m poc.ontology.ingest embed --docs docs.txt
+POC_DATASET=bharat uv run python -m poc.ontology.ingest fts
 POC_DATASET=bharat uv run python -m poc.retrieval.grounded.run --ids Q1 Q2 Q3 --arm ontology-smoke --fresh
 ```
+
+The report's resolution diagnostic counts a question's `evidence_also_in` documents (mirrored copies) as correct.
 
 ## Regression guarantee for finance
 

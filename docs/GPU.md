@@ -11,6 +11,14 @@ Items marked **(unverified)** could not be checked from the Mac. Check them on t
 
 ## A. What you do on DigitalOcean (about 15 min)
 
+> **October 2026 availability note.** H100/H200 single-GPU plans were out of capacity; the plan
+> used is **1× B300 (Spot, Liquid Cooled), 288 GB, $8.00/GPU-hour, Public Preview**, with the
+> **AI/ML Ready** image. Set `GPU_HOURLY_USD=8.00` for `make cost`. Spot droplets can be
+> reclaimed (DO aims for ~2 h notice, sometimes less or none), so run
+> `scripts/pull_loop.sh <IP> 20` on the Mac for the whole session; `gpu_run.sh` resumes from its
+> last completed step on a new droplet. Blackwell needs driver ≥ 580 and a Blackwell-capable vLLM
+> build — `scripts/gpu_preflight.sh` checks both in the first minutes.
+
 1. **Account and billing.** Sign up at <https://cloud.digitalocean.com> and add a payment method.
 2. **GPU access.** New accounts often have low Droplet limits. In the control panel, open
    *Create → Droplets → GPU*. If H100 is greyed out or creation fails with a limit error, ask
@@ -58,6 +66,8 @@ Host github.com
   StrictHostKeyChecking accept-new
 EOF
 git clone git@github.com:bdas-cs/Ontology-poc.git && cd Ontology-poc
+# from the Mac: Bharat questions are kept out of git (no blanket licence on the source text)
+#   scripts/push_private_data.sh <IP>
 
 cat > .env <<'EOF'
 LLM_BASE_URL=http://127.0.0.1:8091/v1
@@ -72,7 +82,7 @@ make model                         # hf download Qwen/Qwen3.6-35B-A3B-FP8 (~37.5
 
 tmux new -d -s llm 'make serve-gpu'          # supervised vLLM on 127.0.0.1:8091, log ~/ontology-poc-data/server.log
 tail -f ~/ontology-poc-data/server.log       # wait for "[serve_vllm.sh] ready" (first start: compile + CUDA graphs, ~5-15 min)
-make smoke                                   # 1 request reasoning on/off
+scripts/gpu_preflight.sh                     # ~10 min go/no-go: driver, torch/vLLM see the GPU, generation, short sweep
 
 tmux new -d -s run 'scripts/gpu_run.sh financebench docfinqa cuad bharat 2>&1 | tee ~/ontology-poc-data/gpu_run.log'
 ```

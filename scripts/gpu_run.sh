@@ -107,7 +107,17 @@ step_cmd() {  # step_cmd <step> -- runs the step for $ds
     download)        run_make download ;;
     pages)           run_make pages ;;
     chunk-ingest)    run_make chunk-ingest ;;
-    ontology-ingest) run_make ontology-ingest ;;
+    ontology-ingest)
+      # Reuse the chunk arm's embeddings instead of re-embedding every page.
+      export ONTOLOGY_CHUNK_TABLE="${ONTOLOGY_CHUNK_TABLE:-chunks_c600}"
+      if [ "$ds" = bharat ] && [ -z "${GOV_EXTRACT_DOCS:-}" ]; then
+        # Cap full extraction: question docs + mirrors + 2,000 seeded distractors
+        # (full corpus ~4-5x costlier; set GOV_EXTRACT_DOCS to override).
+        [ -f "$DATA/bharat/db/gov_extract_docs.txt" ] || \
+          POC_DATASET=bharat uv run python -m poc.datasets.bharat --extract-set "${BHARAT_DISTRACTORS:-2000}"
+        export GOV_EXTRACT_DOCS="$DATA/bharat/db/gov_extract_docs.txt"
+      fi
+      run_make ontology-ingest ;;
     chunk-answer)    run_make chunk-answer FRESH= && check_complete "$runs" answers-chunk.jsonl ;;
     chunk-thinking)  run_make chunk-thinking FRESH= && check_complete "$runs" answers-chunk-think.jsonl ;;
     ontology)        run_make ontology ;;

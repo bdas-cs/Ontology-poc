@@ -20,6 +20,7 @@ import os
 import re
 import unicodedata
 from functools import lru_cache
+from pathlib import Path
 from urllib.parse import urlparse
 
 import pandas as pd
@@ -262,7 +263,19 @@ def doc_pages(doc_name: str) -> list[str]:
     return split_pages(_subset().loc[doc_name, "text"])
 
 
-def build_pages() -> None:
+def _pages_settings() -> dict:
+    return {"topics": TOPICS, "max_docs": MAX_DOCS, "sample_docs": SAMPLE_DOCS, "max_chars": MAX_CHARS,
+            "page_chars": PAGE_CHARS, "seed": SEED, "shards": sorted(p.name for p in (RAW_DIR / "data").glob("train-*.parquet"))}
+
+
+def build_pages(force: bool = False) -> None:
+    """Idempotent: skips the rebuild when pages.parquet exists and was built with the same corpus settings
+    (BHARAT_REBUILD_PAGES=1 forces it)."""
+    meta = PAGES_PATH.with_suffix(".meta.json")
+    force = force or os.getenv("BHARAT_REBUILD_PAGES") == "1"
+    if not force and PAGES_PATH.exists() and meta.exists() and json.loads(meta.read_text()) == _pages_settings():
+        print(f"{PAGES_PATH} is up to date (same corpus settings); BHARAT_REBUILD_PAGES=1 to rebuild")
+        return
     sub = _subset()
     rows = []
     for r in sub.itertuples(index=False):
@@ -270,6 +283,7 @@ def build_pages() -> None:
             rows.append({"doc_name": r.document_id, "page": i, "text": t, "n_images": 0})
     df = pd.DataFrame(rows)
     df.to_parquet(PAGES_PATH)
+    meta.write_text(json.dumps(_pages_settings(), indent=1))
     info = doc_info()
     langs = pd.Series([i["language"] for i in info.values()]).value_counts().to_dict()
     print(f"topics={TOPICS}: {len(sub)} docs, {len(df)} pages, {df.text.str.len().sum() / 1e6:.1f}M chars, "
@@ -283,3 +297,35 @@ def questions() -> list[dict]:
     if not QUESTIONS_PATH.exists():
         raise SystemExit(f"{QUESTIONS_PATH} missing; generate it with `python -m poc.qgen.run all`")
     return [json.loads(l) for l in QUESTIONS_PATH.open() if l.strip()]
+
+
+EXTRACT_SET_PATH = config.DB_DIR / "gov_extract_docs.txt"
+
+
+def write_extract_set(n_distractors: int = 2000, seed: int = SEED) -> Path:
+    """Cap the 'gov' ontology's full LLM extraction to the documents behind the questions
+    (incl. mirrored copies in evidence_also_in) plus a seeded sample of distractors.
+    Every other corpus document still gets the cheap first-pages card pass, so resolution
+    is not biased toward the gold documents. Full extraction of all ~14k docs is ~4-5x costlier."""
+    import random
+
+    gold = set()
+    for q in questions():
+        gold.add(q["doc_name"])
+        gold.update(q.get("evidence_also_in") or [])
+        gold.update(e["doc_name"] for e in q.get("evidence", []))
+    info = doc_info()
+    pool = sorted(d for d in corpus_docs() if d not in gold and not info.get(d, {}).get("legacy_font"))
+    rng = random.Random(seed)
+    picked = sorted(gold & set(corpus_docs())) + sorted(rng.sample(pool, min(n_distractors, len(pool))))
+    EXTRACT_SET_PATH.write_text("\n".join(picked) + "\n")
+    print(f"{len(picked)} docs ({len(gold & set(corpus_docs()))} question docs + mirrors, "
+          f"{len(picked) - len(gold & set(corpus_docs()))} distractors, seed {seed}) → {EXTRACT_SET_PATH}")
+    return EXTRACT_SET_PATH
+
+
+if __name__ == "__main__":
+    import sys
+
+    if sys.argv[1:2] == ["--extract-set"]:
+        write_extract_set(int(sys.argv[2]) if len(sys.argv) > 2 else 2000)

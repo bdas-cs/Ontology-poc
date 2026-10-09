@@ -5,3 +5,11 @@ __pycache__/
 data/
 runs/
 .DS_Store
+
+# keys and secrets — never commit
+digiocean
+digiocean.pub
+*.pem
+id_rsa*
+id_ed25519*
+*.key

@@ -22,9 +22,21 @@ def main() -> None:
     ap.add_argument("--arm", default="ontology")
     ap.add_argument("--judged", default=None)
     a = ap.parse_args()
-    qt = {q["qid"]: q["question_type"] for q in data.questions()}
+    qs = {q["qid"]: q for q in data.questions()}
+    qt = {k: q["question_type"] for k, q in qs.items()}
     df = pd.DataFrame([json.loads(l) for l in (config.RUNS_DIR / f"answers-{a.arm}.jsonl").open()])
     df["question_type"] = df.qid.map(qt)
+    # Bharat: evidence mirrored in other corpus documents (evidence_also_in) also counts as a correct resolution.
+    mirrored = {k: {q["doc_name"], *(q.get("evidence_also_in") or [])} for k, q in qs.items()}
+    if any(len(v) > 1 for v in mirrored.values()):
+        def ok(r, primary=False):
+            f = (r.get("resolved") or {}).get("filings") or []
+            return bool(f) and f[0] in mirrored[r["qid"]] if primary else bool(set(f) & mirrored[r["qid"]])
+        df["resolved_gold_only"] = df.resolved_correct_filing
+        df["resolved_correct_filing"] = [ok(r) for r in df.to_dict("records")]
+        df["resolved_primary_correct"] = [ok(r, True) for r in df.to_dict("records")]
+        print(f"(resolution counts evidence_also_in mirrors; gold doc only: {df.resolved_gold_only.mean():.1%})")
+        rc = dict(zip(df.qid, df.resolved_correct_filing))
     dev = _dev()
     df["dev"] = df.qid.isin(dev)
     print(f"dataset={config.DATASET} arm={a.arm}")
@@ -41,6 +53,8 @@ def main() -> None:
     if jp.exists():
         j = pd.DataFrame([json.loads(l) for l in jp.open()])
         j["dev"] = j.qid.isin(dev)
+        if "resolved_gold_only" in df:
+            j["resolved_correct_filing"] = j.qid.map(rc)
         groups = (("full", j), ("dev", j[j.dev]), ("held-out", j[~j.dev])) if dev else (("full", j),)
         print(f"\njudged: {jp.name}")
         for name, sub in groups:

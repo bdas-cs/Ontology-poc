@@ -11,12 +11,15 @@ Steps (each idempotent; `all` runs them in order):
 
   uv run python -m poc.ontology.ingest all
   uv run python -m poc.ontology.ingest all --only DOC_A DOC_B      # smoke test on a few documents
-Stats -> runs/ingest-ontology.json
+  uv run python -m poc.ontology.ingest all --docs docs.txt          # same, doc_names from a file (one per line)
+  ONTO_DOCS=docs.txt make ontology-ingest                           # env form (a file path or comma-separated)
+Stats -> runs/ingest-ontology.json (full runs) or runs/ingest-ontology-subset.json (--only / --docs runs)
 """
 import argparse
 import json
 import os
 import time
+from pathlib import Path
 
 import pandas as pd
 
@@ -25,6 +28,7 @@ from poc.ontology import domains, schema
 from poc.ontology.runtime import rw, squeeze
 
 STATS_PATH = config.RUNS_DIR / "ingest-ontology.json"
+SUBSET_STATS_PATH = config.RUNS_DIR / "ingest-ontology-subset.json"
 CHUNK_TABLE = os.getenv("ONTOLOGY_CHUNK_TABLE", "chunks")
 
 
@@ -137,11 +141,23 @@ def step_fts() -> dict:
     return {"fts_wall_s": round(time.perf_counter() - t0, 1)}
 
 
+def _doc_list(spec: str) -> list[str]:
+    """A file of doc_names (one per line) or a comma-separated list."""
+    p = Path(spec).expanduser()
+    items = p.read_text().splitlines() if p.exists() else spec.split(",")
+    return [x.strip() for x in items if x.strip()]
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("step", choices=["base", "extract", "load", "embed", "fts", "all"])
     ap.add_argument("--only", nargs="*", help="restrict every step to these doc_names (smoke tests / dev)")
+    ap.add_argument("--docs", default=os.getenv("ONTO_DOCS"),
+                    help="restrict every step to the doc_names in this file (or comma list); env ONTO_DOCS")
     a = ap.parse_args()
+    if a.docs:
+        a.only = list(dict.fromkeys([*(a.only or []), *_doc_list(a.docs)]))
+        print(f"restricted to {len(a.only)} documents ({a.docs})")
     steps = ["base", "extract", "embed", "fts"] if a.step == "all" else [a.step]
     for s in steps:
         print(f"== {s} (domain={domains.get().NAME}, dataset={config.DATASET})")
@@ -151,6 +167,9 @@ def main() -> None:
         print(json.dumps(st, indent=1))
         if not a.only and s != "load":
             _save_stats(st)
+        elif a.only:
+            prev = json.loads(SUBSET_STATS_PATH.read_text()) if SUBSET_STATS_PATH.exists() else {}
+            SUBSET_STATS_PATH.write_text(json.dumps({**prev, **st, "subset_docs": len(a.only)}, indent=2))
     if not a.only:
         s = _load_stats()
         s["total_wall_s"] = round(sum(v for k, v in s.items() if k.endswith("_wall_s") and k != "total_wall_s"), 1)
