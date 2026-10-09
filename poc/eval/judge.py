@@ -1,4 +1,4 @@
-"""Judge answers against FinanceBench ground truth.
+"""Judge answers against the active dataset's ground truth (POC_DATASET).
 
 Input:  runs/answers-<arm>.jsonl   rows: {qid, arm, answer, ...}
 Output: runs/judged-<arm>.jsonl    rows: input + {strict, expanded, rationale, judge}
@@ -7,7 +7,12 @@ Prints strict / expanded accuracy overall and by question_type.
 Judge = Claude (JUDGE_MODEL, default claude-opus-5-5) when Anthropic credentials are
 available; otherwise the local model with `--local` (labelled, provisional).
 
+Dataset-aware: the adapter may define JUDGE_CONTEXT (a short domain description plus rubric notes, e.g. what
+counts as strict / expanded for contract clauses); it is appended to the generic grading instructions. Without
+it (FinanceBench) the system prompt is the original SEC-filings prompt, unchanged.
+
   uv run python -m poc.eval.judge chunk ontology
+  POC_DATASET=cuad uv run python -m poc.eval.judge ontology --limit 5     # spot check, 5 answers
 """
 import argparse
 import asyncio
@@ -18,7 +23,7 @@ import pandas as pd
 
 from poc import config, data, llm
 
-SYSTEM = """You grade answers to financial questions about SEC filings against a ground-truth answer.
+FINANCEBENCH_SYSTEM = """You grade answers to financial questions about SEC filings against a ground-truth answer.
 
 Return two verdicts:
 - strict: true only if the candidate reaches the same answer as the ground truth. For numbers,
@@ -30,6 +35,28 @@ Return two verdicts:
   or a qualitative judgement backed by the right figures).
 A refusal, "not found", or hedged non-answer is false on both.
 Keep the rationale to one or two sentences."""
+
+GENERIC_SYSTEM = """You grade a candidate answer against a ground-truth answer.
+
+Dataset and rubric:
+{context}
+
+Return two verdicts:
+- strict: true only if the candidate reaches the same answer as the ground truth (per the rubric above).
+- expanded: true if strict is true, OR the candidate gives a different but correctly reasoned answer that the
+  evidence supports, as the rubric above allows.
+A refusal, "not found", or hedged non-answer is false on both, unless the ground truth itself says the
+information is not present and the candidate says so.
+Keep the rationale to one or two sentences."""
+
+
+def system_prompt() -> str:
+    ctx = getattr(data._ds, "JUDGE_CONTEXT", None)
+    return GENERIC_SYSTEM.format(context=ctx.strip()) if ctx else FINANCEBENCH_SYSTEM
+
+
+SYSTEM = system_prompt()
+EVIDENCE_LABEL = "Filing evidence" if data.NAME in ("financebench", "docfinqa") else "Source evidence"
 
 SCHEMA = {
     "type": "object",
@@ -49,7 +76,7 @@ def _prompt(q: dict, answer: str) -> str:
         f"Question:\n{q['question']}\n\n"
         f"Ground-truth answer:\n{q['answer']}\n\n"
         f"Ground-truth justification:\n{q.get('justification') or '(none)'}\n\n"
-        f"Filing evidence:\n{evidence}\n\n"
+        f"{EVIDENCE_LABEL}:\n{evidence if data.NAME == 'financebench' else (evidence or '(none)')}\n\n"
         f"Candidate answer:\n{answer}"
     )
 
@@ -79,10 +106,12 @@ async def _judge_local(q: dict, answer: str) -> dict:
     return {**llm.parse_json(out["content"]), "judge": f"local:{config.LLM_MODEL}"}
 
 
-async def judge_arm(arm: str, local: bool, concurrency: int = 8) -> pd.DataFrame:
+async def judge_arm(arm: str, local: bool, concurrency: int = 8, limit: int = 0) -> pd.DataFrame:
     qs = {q["qid"]: q for q in data.questions()}
     src = config.RUNS_DIR / f"answers-{arm}.jsonl"
     rows = [json.loads(l) for l in src.open()]
+    if limit:
+        rows = rows[:limit]
     client = None if local else anthropic.AsyncAnthropic()
     sem = asyncio.Semaphore(concurrency)
 
@@ -90,10 +119,11 @@ async def judge_arm(arm: str, local: bool, concurrency: int = 8) -> pd.DataFrame
         q = qs[row["qid"]]
         async with sem:
             v = await (_judge_local(q, row["answer"]) if local else _judge_claude(client, q, row["answer"]))
-        return {**row, **v, "question_type": q["question_type"], "gold": q["answer"]}
+        extra = {k: q[k] for k in ("category", "present") if k in q}
+        return {**row, **v, "question_type": q["question_type"], "gold": q["answer"], **extra}
 
     judged = await asyncio.gather(*(one(r) for r in rows))
-    out = config.RUNS_DIR / f"judged-{arm}{'-localjudge' if local else ''}.jsonl"
+    out = config.RUNS_DIR / f"judged-{arm}{'-localjudge' if local else ''}{f'-first{limit}' if limit else ''}.jsonl"
     with out.open("w") as f:
         for r in judged:
             f.write(json.dumps(r) + "\n")
@@ -102,7 +132,7 @@ async def judge_arm(arm: str, local: bool, concurrency: int = 8) -> pd.DataFrame
 
 def report(df: pd.DataFrame, arm: str) -> None:
     n = len(df)
-    print(f"\n== {arm}  (n={n}, judge={df.judge.iloc[0]})")
+    print(f"\n== {config.DATASET} / {arm}  (n={n}, judge={df.judge.iloc[0]})")
     print(f"strict   {df.strict.mean():.1%}\nexpanded {df.expanded.mean():.1%}")
     print(df.groupby("question_type")[["strict", "expanded"]].mean().round(3).to_string())
 
@@ -111,9 +141,10 @@ def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("arms", nargs="+")
     p.add_argument("--local", action="store_true", help="use the local model as a provisional judge")
+    p.add_argument("--limit", type=int, default=0, help="judge only the first N answers (spot check; writes *-firstN)")
     a = p.parse_args()
     for arm in a.arms:
-        report(asyncio.run(judge_arm(arm, a.local)), arm)
+        report(asyncio.run(judge_arm(arm, a.local, limit=a.limit)), arm)
 
 
 if __name__ == "__main__":

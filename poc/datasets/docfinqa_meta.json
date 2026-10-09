@@ -1,0 +1,1258 @@
+{
+ "01a8b1c7e8e2283697888d65a6d9faec9c7f33f0": {
+  "company": "United Parcel Service, Inc.",
+  "fiscal_year": 2012,
+  "heuristic_company": "United Parcel Service, Inc",
+  "heuristic_fy": 2012,
+  "source": "llm",
+  "ticker": "UPS"
+ },
+ "02b95cb144c9005aaa8db98207cb10eb3b5f1df2": {
+  "company": "Hologic, Inc.",
+  "fiscal_year": 2006,
+  "heuristic_company": "Hologic, Inc",
+  "heuristic_fy": 2006,
+  "source": "llm",
+  "ticker": "HOLX"
+ },
+ "03aee55b951e7c589d7c41658bf4145b9f7a6e22": {
+  "company": "Ecolab Inc.",
+  "fiscal_year": 2017,
+  "heuristic_company": "Ecolab Inc",
+  "heuristic_fy": 2017,
+  "source": "llm",
+  "ticker": "ECL"
+ },
+ "042663381d58748c5babadf8ec531833bd7176dc": {
+  "company": "The Goldman Sachs Group, Inc.",
+  "fiscal_year": 2012,
+  "heuristic_company": "The Goldman Sachs Group, Inc",
+  "heuristic_fy": 2012,
+  "source": "llm",
+  "ticker": "GS"
+ },
+ "04dfa1792454b2c2fdf48b0a98490d4b5f97ad30": {
+  "company": "Union Pacific Corporation",
+  "fiscal_year": 2007,
+  "heuristic_company": "Union Pacific Corporation",
+  "heuristic_fy": 2007,
+  "source": "llm",
+  "ticker": "UNP"
+ },
+ "0a8a3407dbc124fee50780d8f3deeac9f5146505": {
+  "company": "T-Mobile US, Inc.",
+  "fiscal_year": 2017,
+  "heuristic_company": "T-Mobile US, Inc",
+  "heuristic_fy": 2017,
+  "source": "llm",
+  "ticker": "TMUS"
+ },
+ "0b62293c01a6f4b8043a3c666ed16f0a351cb651": {
+  "company": "Lockheed Martin Corporation",
+  "fiscal_year": 2015,
+  "heuristic_company": "Lockheed Martin Corporation",
+  "heuristic_fy": 2015,
+  "source": "llm",
+  "ticker": "LMT"
+ },
+ "0bc770054667e8cb3d6e53125e17ab616090c550": {
+  "company": "Humana Inc.",
+  "fiscal_year": 2009,
+  "heuristic_company": "Humana Inc",
+  "heuristic_fy": 2009,
+  "source": "llm",
+  "ticker": "HUM"
+ },
+ "0e788cc65897008aa4142343b52ba925ba27e09e": {
+  "company": "Entergy Corporation",
+  "fiscal_year": 2013,
+  "heuristic_company": "Documents Incorporated BY Reference",
+  "heuristic_fy": 2013,
+  "source": "llm",
+  "ticker": "ETR"
+ },
+ "0eda938903cee38ccc8ea99c0c5ea8fc15b6e219": {
+  "company": "The Goldman Sachs Group, Inc.",
+  "fiscal_year": 2013,
+  "heuristic_company": "The Goldman Sachs Group, Inc",
+  "heuristic_fy": 2013,
+  "source": "llm",
+  "ticker": "GS"
+ },
+ "0efe27beff33d2ec4cc2632a9b3b7e4e74bf3d47": {
+  "company": "United Parcel Service, Inc.",
+  "fiscal_year": 2010,
+  "heuristic_company": "United Parcel Service, Inc",
+  "heuristic_fy": 2010,
+  "source": "llm",
+  "ticker": "UPS"
+ },
+ "0f8766927abacabfd27ae3c2a13eda87865928b7": {
+  "company": "Entergy Corporation",
+  "fiscal_year": 2008,
+  "heuristic_company": "Entergy Mississippi, Inc",
+  "heuristic_fy": 2008,
+  "source": "llm",
+  "ticker": "ETR"
+ },
+ "0fc25dc1491619e87bfeb41d6f021c2b0e22ead4": {
+  "company": "Motorola Solutions, Inc.",
+  "fiscal_year": 2014,
+  "heuristic_company": "Motorola Solutions, Inc",
+  "heuristic_fy": 2014,
+  "source": "llm",
+  "ticker": "MSI"
+ },
+ "11a36cf2e6e309f8ac1f33873b5c60678af30f67": {
+  "company": "Intel Corporation",
+  "fiscal_year": 2015,
+  "heuristic_company": "Intel Corporation",
+  "heuristic_fy": 2015,
+  "source": "llm",
+  "ticker": "INTC"
+ },
+ "1505622e595a54be709bf6403090d6211394d4a0": {
+  "company": "Apple Computer, Inc.",
+  "fiscal_year": 2003,
+  "heuristic_company": "Apple Computer, Inc",
+  "heuristic_fy": 2003,
+  "source": "llm",
+  "ticker": "AAPL"
+ },
+ "1588aaead1f4b46ca99182a82526570cb4eabd5a": {
+  "company": "Becton, Dickinson and Company",
+  "fiscal_year": 2018,
+  "heuristic_company": "Becton, Dickinson and Company",
+  "heuristic_fy": 2018,
+  "source": "llm",
+  "ticker": "BDX"
+ },
+ "1643dc7ad78117a1546839a3952c458cd2920cfd": {
+  "company": "The Priceline Group Inc.",
+  "fiscal_year": 2016,
+  "heuristic_company": "The Priceline Group Inc",
+  "heuristic_fy": 2016,
+  "source": "llm",
+  "ticker": "PCLN"
+ },
+ "18171d575b808e39d7e569e6a67d2885779691d6": {
+  "company": "American Water Works Company, Inc.",
+  "fiscal_year": 2017,
+  "heuristic_company": "American Water Works Company, Inc",
+  "heuristic_fy": 2017,
+  "source": "llm",
+  "ticker": "AWK"
+ },
+ "1b1e57ce975eff9d8058c1422acf82cd39e93d11": {
+  "company": "Illumina, Inc.",
+  "fiscal_year": 2008,
+  "heuristic_company": "Illumina, Inc",
+  "heuristic_fy": 2008,
+  "source": "llm",
+  "ticker": "ILMN"
+ },
+ "1d848279293b881ac884ff2e5e25a5c5a73783a1": {
+  "company": "The AES Corporation",
+  "fiscal_year": 2001,
+  "heuristic_company": "The AES Corporation",
+  "heuristic_fy": 2001,
+  "source": "llm",
+  "ticker": "AES"
+ },
+ "1f035142c51d7d7d94383d2a86a8b542e5f9a698": {
+  "company": "Lockheed Martin Corporation",
+  "fiscal_year": 2014,
+  "heuristic_company": "Lockheed Martin Corporation",
+  "heuristic_fy": 2014,
+  "source": "llm",
+  "ticker": "LMT"
+ },
+ "2180dde91d7b2310ad8673622d5cacaf0acb16c2": {
+  "company": "AMR Corporation",
+  "fiscal_year": 2010,
+  "heuristic_company": "AMR Corporation",
+  "heuristic_fy": 2010,
+  "source": "llm",
+  "ticker": "AAMRQ"
+ },
+ "2196116f02f5c18fcd5e8adf650a2a076550bb11": {
+  "company": "Devon Energy Corporation",
+  "fiscal_year": 2018,
+  "heuristic_company": "Devon Energy Corporation",
+  "heuristic_fy": 2018,
+  "source": "llm",
+  "ticker": "DVN"
+ },
+ "23997104a6937e568e018a95ad87702a7b132e42": {
+  "company": "LKQ Corporation",
+  "fiscal_year": 2016,
+  "heuristic_company": "LKQ Corporation",
+  "heuristic_fy": 2016,
+  "source": "llm",
+  "ticker": "LKQ"
+ },
+ "262694cd84f7e7015949c43cdcdf35f387505618": {
+  "company": "Marathon Oil Corporation",
+  "fiscal_year": 2004,
+  "heuristic_company": "Marathon Oil Corporation",
+  "heuristic_fy": 2004,
+  "source": "llm",
+  "ticker": "MRO"
+ },
+ "27635761741d27fb1fbfc7b5b218a1abd51a8f29": {
+  "company": "General Mills, Inc.",
+  "fiscal_year": 2018,
+  "heuristic_company": "General Mills, Inc",
+  "heuristic_fy": 2018,
+  "source": "llm",
+  "ticker": "GIS"
+ },
+ "28217ce17f7d56c1b7022f47aec46e6e72a27040": {
+  "company": "PPG Industries, Inc.",
+  "fiscal_year": 2018,
+  "heuristic_company": "PPG Industries, Inc",
+  "heuristic_fy": 2018,
+  "source": "llm",
+  "ticker": "PPG"
+ },
+ "28c82b65025ec1c2e3ef44611763cca9fcfa9359": {
+  "company": "Snap-on Incorporated",
+  "fiscal_year": 2007,
+  "heuristic_company": "Accelerated filer o Non-accelerated filer o Smaller reporting company o",
+  "heuristic_fy": 2007,
+  "source": "llm",
+  "ticker": "SNA"
+ },
+ "2f3845e16b3af6d8ca7ed5abcd6c02f04fb1e297": {
+  "company": "Zimmer Holdings, Inc.",
+  "fiscal_year": 2007,
+  "heuristic_company": "Zimmer Holdings, Inc",
+  "heuristic_fy": 2007,
+  "source": "llm",
+  "ticker": "ZMH"
+ },
+ "2ff67275a14710eab016959549f5348c3bf21158": {
+  "company": "Kellogg Company",
+  "fiscal_year": 2013,
+  "heuristic_company": "Kellogg Company",
+  "heuristic_fy": 2013,
+  "source": "llm",
+  "ticker": "K"
+ },
+ "321c88e5f4a5b1634919f0a5509b83b3c58d953e": {
+  "company": "Altria Group, Inc.",
+  "fiscal_year": 2016,
+  "heuristic_company": "Altria Group, Inc",
+  "heuristic_fy": 2016,
+  "source": "llm",
+  "ticker": "MO"
+ },
+ "32b51e8c07f38e40345e417fbf5ee25ee6dd58c6": {
+  "company": "PPG Industries, Inc.",
+  "fiscal_year": 2012,
+  "heuristic_company": "PPG Industries, Inc",
+  "heuristic_fy": 2012,
+  "source": "llm",
+  "ticker": "PPG"
+ },
+ "32f20f9fc71487eb23d615789773dd4507f1f40a": {
+  "company": "The Goldman Sachs Group, Inc.",
+  "fiscal_year": 2018,
+  "heuristic_company": "The Goldman Sachs Group, Inc",
+  "heuristic_fy": 2018,
+  "source": "llm",
+  "ticker": "GS"
+ },
+ "3429e050e49d3196e39d572bfac1daa45a8735c3": {
+  "company": "Union Pacific Corporation",
+  "fiscal_year": 2011,
+  "heuristic_company": "Union Pacific Corporation",
+  "heuristic_fy": 2011,
+  "source": "llm",
+  "ticker": "UNP"
+ },
+ "353fdad43860af65f934d4bda534d7bc32e0324c": {
+  "company": "Entergy Corporation",
+  "fiscal_year": 2004,
+  "heuristic_company": "(guaranteed by Entergy Gulf States, Inc.)",
+  "heuristic_fy": 2004,
+  "source": "llm",
+  "ticker": "ETR"
+ },
+ "38dcd014293e72c474232336bc00d6b2bb3ccb19": {
+  "company": "Hologic, Inc.",
+  "fiscal_year": 2007,
+  "heuristic_company": "Hologic, Inc",
+  "heuristic_fy": 2007,
+  "source": "llm",
+  "ticker": "HOLX"
+ },
+ "3a66ab3507d667d482b8432b117283361e46e4ed": {
+  "company": "Global Payments Inc.",
+  "fiscal_year": 2013,
+  "heuristic_company": "Global Payments Inc",
+  "heuristic_fy": 2013,
+  "source": "llm",
+  "ticker": "GPN"
+ },
+ "3c75b50347adde348b4ed66d03f0f4b79ec76bb3": {
+  "company": "MarketAxess Holdings Inc.",
+  "fiscal_year": 2004,
+  "heuristic_company": "Marketaxess Holdings Inc",
+  "heuristic_fy": 2004,
+  "source": "manual",
+  "ticker": "MKTX"
+ },
+ "3ce08b64c9c19871cae4e5de6450c6a3a04e6bab": {
+  "company": "Fidelity National Information Services, Inc.",
+  "fiscal_year": 2017,
+  "heuristic_company": "Fidelity National Information Services, Inc",
+  "heuristic_fy": 2017,
+  "source": "llm",
+  "ticker": "FIS"
+ },
+ "3cf8549a08a31111b7fd711996240f598820a9f8": {
+  "company": "Royal Caribbean Cruises Ltd.",
+  "fiscal_year": 2012,
+  "heuristic_company": "Royal Caribbean Cruises Ltd",
+  "heuristic_fy": 2012,
+  "source": "llm",
+  "ticker": "RCL"
+ },
+ "40010cec17c2b0ef9bd3177eeb22906ee3618df6": {
+  "company": "Union Pacific Corporation",
+  "fiscal_year": 2009,
+  "heuristic_company": "Union Pacific Corporation",
+  "heuristic_fy": 2009,
+  "source": "llm",
+  "ticker": "UNP"
+ },
+ "41f540a7bf881afef3d62dc6bb937fea6bd59a06": {
+  "company": "Morgan Stanley",
+  "fiscal_year": 2012,
+  "heuristic_company": "NYSE Arca, Inc",
+  "heuristic_fy": 2012,
+  "source": "manual",
+  "ticker": "MS"
+ },
+ "42352b14d8cba1e2b650dab6abb33017051ac4af": {
+  "company": "Analog Devices, Inc.",
+  "fiscal_year": 2011,
+  "heuristic_company": "Analog Devices, Inc",
+  "heuristic_fy": 2011,
+  "source": "llm",
+  "ticker": "ADI"
+ },
+ "454feb6dd79dd4b18b566510233f798b67811afb": {
+  "company": "ANSYS, Inc.",
+  "fiscal_year": 2012,
+  "heuristic_company": "ANSYS, Inc",
+  "heuristic_fy": 2012,
+  "source": "llm",
+  "ticker": "ANSS"
+ },
+ "4988b24ef90d896858c77e28abc7f5c5e203c2b1": {
+  "company": "American Tower Corporation",
+  "fiscal_year": 2005,
+  "heuristic_company": "American Tower Corporation",
+  "heuristic_fy": 2005,
+  "source": "llm",
+  "ticker": "AMT"
+ },
+ "49bc564daa5c5f006d5776f05cb4dbe0b966c836": {
+  "company": "Global Payments Inc.",
+  "fiscal_year": 2010,
+  "heuristic_company": "Global Payments Inc",
+  "heuristic_fy": 2010,
+  "source": "llm",
+  "ticker": "GPN"
+ },
+ "4d2d66b8f247b11c14bd6b466155f3c2c6946fed": {
+  "company": "American Tower Corporation",
+  "fiscal_year": 2007,
+  "heuristic_company": "American Tower Corporation",
+  "heuristic_fy": 2007,
+  "source": "llm",
+  "ticker": "AMT"
+ },
+ "4f8b0311a292d993f6e6ed445eedcf6d58ed7396": {
+  "company": "The Estée Lauder Companies Inc.",
+  "fiscal_year": 2008,
+  "heuristic_company": "The Estée Lauder Companies Inc",
+  "heuristic_fy": 2008,
+  "source": "llm",
+  "ticker": "EL"
+ },
+ "50b4ca0d1181b0d5900f997e3582d3bac9866245": {
+  "company": "PPG Industries, Inc.",
+  "fiscal_year": 2006,
+  "heuristic_company": "PPG Industries, Inc",
+  "heuristic_fy": 2006,
+  "source": "llm",
+  "ticker": "PPG"
+ },
+ "53d75dbeb18c5fcff89f27b01de61fbb9e86d04b": {
+  "company": "MarketAxess Holdings Inc.",
+  "fiscal_year": 2012,
+  "heuristic_company": "Marketaxess Holdings Inc",
+  "heuristic_fy": 2012,
+  "source": "llm",
+  "ticker": "MKTX"
+ },
+ "544659d4a398366c23d43cbe1c7e58050edc0efc": {
+  "company": "The Hartford Financial Services Group, Inc.",
+  "fiscal_year": 2004,
+  "heuristic_company": "the Hartford Financial Services Group, Inc",
+  "heuristic_fy": 2004,
+  "source": "llm",
+  "ticker": "HIG"
+ },
+ "54cd9acaf273c9423a0ef0c0252a5e4ee2fa9b06": {
+  "company": "The AES Corporation",
+  "fiscal_year": 2002,
+  "heuristic_company": "The AES Corporation",
+  "heuristic_fy": 2002,
+  "source": "llm",
+  "ticker": "AES"
+ },
+ "54dae0958f401c0f7dee0c9f2ddaef7a5c783be2": {
+  "company": "Royal Caribbean Cruises Ltd.",
+  "fiscal_year": 2016,
+  "heuristic_company": "Royal Caribbean Cruises Ltd",
+  "heuristic_fy": 2016,
+  "source": "llm",
+  "ticker": "RCL"
+ },
+ "572125d333850b95f5a5fa3c342dad893a28007d": {
+  "company": "International Paper Company",
+  "fiscal_year": 2009,
+  "heuristic_company": "International Paper Company",
+  "heuristic_fy": 2009,
+  "source": "llm",
+  "ticker": "IP"
+ },
+ "57726eae4e092ea00f2afe94a874048ad1e51627": {
+  "company": "International Paper Company",
+  "fiscal_year": 2006,
+  "heuristic_company": "International Paper Company",
+  "heuristic_fy": 2006,
+  "source": "llm",
+  "ticker": "IP"
+ },
+ "58147854f50c3116d2ec88ddb05d94e2fb028e22": {
+  "company": "Marriott International, Inc.",
+  "fiscal_year": 2018,
+  "heuristic_company": "Marriott International, Inc",
+  "heuristic_fy": 2018,
+  "source": "llm",
+  "ticker": "MAR"
+ },
+ "5a24da7dfa1aeb2da911459805d9f64eb51ceb96": {
+  "company": "Entergy Corporation",
+  "fiscal_year": 2016,
+  "heuristic_company": "Documents Incorporated BY Reference",
+  "heuristic_fy": 2016,
+  "source": "llm",
+  "ticker": "ETR"
+ },
+ "5adcce9b146f8a360dd3832c9ca7317f357bd544": {
+  "company": "United Parcel Service, Inc.",
+  "fiscal_year": 2016,
+  "heuristic_company": "United Parcel Service, Inc",
+  "heuristic_fy": 2016,
+  "source": "llm",
+  "ticker": "UPS"
+ },
+ "5bb9888707c12de91b090a9596e4f3d5e79d8f0d": {
+  "company": "Masco Corporation",
+  "fiscal_year": 2017,
+  "heuristic_company": "Masco Corporation",
+  "heuristic_fy": 2017,
+  "source": "llm",
+  "ticker": "MAS"
+ },
+ "5dd39995007c71a5ded077dec533727f0ae6fbc6": {
+  "company": "Teleflex Incorporated",
+  "fiscal_year": 2015,
+  "heuristic_company": "Teleflex Incorporated",
+  "heuristic_fy": 2015,
+  "source": "llm",
+  "ticker": "TFX"
+ },
+ "5e280e36c34ad0a05f3573e3899b990d995734af": {
+  "company": "Illumina, Inc.",
+  "fiscal_year": 2003,
+  "heuristic_company": "Illumina, Inc",
+  "heuristic_fy": 2003,
+  "source": "llm",
+  "ticker": "ILMN"
+ },
+ "5eba3197fdef0552b41b52ea3160b1ea244a01fa": {
+  "company": "Union Pacific Corporation",
+  "fiscal_year": 2018,
+  "heuristic_company": "Union Pacific Corporation",
+  "heuristic_fy": 2018,
+  "source": "llm",
+  "ticker": "UNP"
+ },
+ "60a4765cdb3188d772cff457454ac68fba1be59c": {
+  "company": "Devon Energy Corporation",
+  "fiscal_year": 2012,
+  "heuristic_company": "Devon Energy Corporation",
+  "heuristic_fy": 2012,
+  "source": "llm",
+  "ticker": "DVN"
+ },
+ "60c5671ea4c0f1a06bb84e4a38b8b8838d6db959": {
+  "company": "Republic Services, Inc.",
+  "fiscal_year": 2009,
+  "heuristic_company": "Republic Services, Inc",
+  "heuristic_fy": 2009,
+  "source": "llm",
+  "ticker": "RSG"
+ },
+ "62f4bbacbf61703e4325d1fa9b962133af98788f": {
+  "company": "Entergy Corporation",
+  "fiscal_year": 2011,
+  "heuristic_company": "Documents Incorporated BY Reference",
+  "heuristic_fy": 2011,
+  "source": "llm",
+  "ticker": "ETR"
+ },
+ "640b7a9f55e43bae6eebe7d27c7f6743eaf9fdaf": {
+  "company": "Celanese Corporation",
+  "fiscal_year": 2013,
+  "heuristic_company": "Celanese Corporation",
+  "heuristic_fy": 2013,
+  "source": "llm",
+  "ticker": "CE"
+ },
+ "6498131582f0f689639d3137ac1482b7ee2d01b9": {
+  "company": "Analog Devices, Inc.",
+  "fiscal_year": 2019,
+  "heuristic_company": "Analog Devices, Inc",
+  "heuristic_fy": 2019,
+  "source": "llm",
+  "ticker": "ADI"
+ },
+ "66514317b62373f20867eed86a6325ede1dc9c6c": {
+  "company": "The Hartford Financial Services Group, Inc.",
+  "fiscal_year": 2011,
+  "heuristic_company": "the Hartford Financial Services Group, Inc",
+  "heuristic_fy": 2011,
+  "source": "llm",
+  "ticker": "HIG"
+ },
+ "693925fbaad485533a701bfac1f698959c42eaa4": {
+  "company": "Union Pacific Corporation",
+  "fiscal_year": 2010,
+  "heuristic_company": "Union Pacific Corporation",
+  "heuristic_fy": 2010,
+  "source": "llm",
+  "ticker": "UNP"
+ },
+ "6b8ecdef0bd8a5632925732cfe3123c43e17f74b": {
+  "company": "JPMorgan Chase & Co.",
+  "fiscal_year": 2010,
+  "heuristic_company": "JPMorgan Chase & Co",
+  "heuristic_fy": 2010,
+  "source": "llm",
+  "ticker": "JPM"
+ },
+ "6bf86b46ac72bf7f2368a5202361944fdff05983": {
+  "company": "3M Company",
+  "fiscal_year": 2015,
+  "heuristic_company": "3M Company",
+  "heuristic_fy": 2015,
+  "source": "llm",
+  "ticker": "MMM"
+ },
+ "6e55fcdcc443da5a271363925e9172700158a9e5": {
+  "company": "Motorola Solutions, Inc.",
+  "fiscal_year": 2012,
+  "heuristic_company": "Motorola Solutions, Inc",
+  "heuristic_fy": 2012,
+  "source": "llm",
+  "ticker": "MSI"
+ },
+ "6f23893d62a13af7b156917990817276a98ac064": {
+  "company": "Lockheed Martin Corporation",
+  "fiscal_year": 2016,
+  "heuristic_company": "Lockheed Martin Corporation",
+  "heuristic_fy": 2016,
+  "source": "llm",
+  "ticker": "LMT"
+ },
+ "757715ccc4b26f6b32632b6456c452e114038ee9": {
+  "company": "Lockheed Martin Corporation",
+  "fiscal_year": 2012,
+  "heuristic_company": "Lockheed Martin Corporation",
+  "heuristic_fy": 2012,
+  "source": "llm",
+  "ticker": "LMT"
+ },
+ "770f642985099206c5f1b44f71bdf32fc56fee9a": {
+  "company": "American Tower Corporation",
+  "fiscal_year": 2006,
+  "heuristic_company": "American Tower Corporation",
+  "heuristic_fy": 2006,
+  "source": "llm",
+  "ticker": "AMT"
+ },
+ "77cbb23b792ee88c767f6925b124f5496ce2d49e": {
+  "company": "Republic Services, Inc.",
+  "fiscal_year": 2013,
+  "heuristic_company": "Republic Services, Inc",
+  "heuristic_fy": 2013,
+  "source": "llm",
+  "ticker": "RSG"
+ },
+ "7acf009ddb6925e5eef2a554bebb5d1d056d9c47": {
+  "company": "3M Company",
+  "fiscal_year": 2007,
+  "heuristic_company": "3M Company",
+  "heuristic_fy": 2007,
+  "source": "llm",
+  "ticker": "MMM"
+ },
+ "7af10028b0625446cd02ca0f199b21a4675e8b4c": {
+  "company": "Loews Corporation",
+  "fiscal_year": 2009,
+  "heuristic_company": "Loews Corporation",
+  "heuristic_fy": 2009,
+  "source": "llm",
+  "ticker": "L"
+ },
+ "7bed7dcae71d5683ad5a51a6f5a81d87f96e525c": {
+  "company": "Humana Inc.",
+  "fiscal_year": 2017,
+  "heuristic_company": "Humana Inc",
+  "heuristic_fy": 2017,
+  "source": "llm",
+  "ticker": "HUM"
+ },
+ "7f7074b364bf9fc5413596fe45e7e5f43d476c24": {
+  "company": "Packaging Corporation of America",
+  "fiscal_year": 2005,
+  "heuristic_company": "Packaging Corporation of America",
+  "heuristic_fy": 2005,
+  "source": "llm",
+  "ticker": "PKG"
+ },
+ "7f72627452a905ced73f5c779835ac36ffc45f83": {
+  "company": "Huntington Ingalls Industries, Inc.",
+  "fiscal_year": 2015,
+  "heuristic_company": "Huntington Ingalls Industries, Inc",
+  "heuristic_fy": 2015,
+  "source": "llm",
+  "ticker": "HII"
+ },
+ "80b0203b5ad15deee9f9381c86f81927afb30517": {
+  "company": "Citigroup Inc.",
+  "fiscal_year": 2008,
+  "heuristic_company": "| Institutional Clients Group (icg) | 34 |",
+  "heuristic_fy": 2008,
+  "source": "llm",
+  "ticker": "C"
+ },
+ "85c8e6d6566290bfa232665710e66df3b0f620e0": {
+  "company": "Snap-on Incorporated",
+  "fiscal_year": 2012,
+  "heuristic_company": "Documents Incorporated BY Reference",
+  "heuristic_fy": 2012,
+  "source": "llm",
+  "ticker": "SNA"
+ },
+ "8721cd99b34091d755a755f0c4af4da53421a524": {
+  "company": "The AES Corporation",
+  "fiscal_year": 2010,
+  "heuristic_company": "The AES Corporation",
+  "heuristic_fy": 2010,
+  "source": "llm",
+  "ticker": "AES"
+ },
+ "89cc2fe84fe02bc961824dd1caf40f64d6b21e3b": {
+  "company": "Fidelity National Information Services, Inc.",
+  "fiscal_year": 2012,
+  "heuristic_company": "Fidelity National Information Services, Inc",
+  "heuristic_fy": 2012,
+  "source": "llm",
+  "ticker": "FIS"
+ },
+ "89f01d20730a70d99aadec1db731469428d19aa4": {
+  "company": "CME Group Inc.",
+  "fiscal_year": 2017,
+  "heuristic_company": "CME Group Inc",
+  "heuristic_fy": 2017,
+  "source": "llm",
+  "ticker": "CME"
+ },
+ "91929b0d15bfc4fd01b8807fc0e985de29bea37d": {
+  "company": "Vertex Pharmaceuticals Incorporated",
+  "fiscal_year": 2006,
+  "heuristic_company": "Vertex Pharmaceuticals Incorporated",
+  "heuristic_fy": 2006,
+  "source": "llm",
+  "ticker": "VRTX"
+ },
+ "9ab4c21be7a9036c240cc6ab67f797a3a690f7f9": {
+  "company": "Analog Devices, Inc.",
+  "fiscal_year": 2010,
+  "heuristic_company": "Analog Devices, Inc",
+  "heuristic_fy": 2010,
+  "source": "llm",
+  "ticker": "ADI"
+ },
+ "9c9238a9333875efa9364fbdcc21c1b80f6acedf": {
+  "company": "General Mills, Inc.",
+  "fiscal_year": 2020,
+  "heuristic_company": "General Mills, Inc",
+  "heuristic_fy": 2020,
+  "source": "llm",
+  "ticker": "GIS"
+ },
+ "9cb61342186da20b09686614446bcbe95648a0c4": {
+  "company": "Fidelity National Information Services, Inc.",
+  "fiscal_year": 2016,
+  "heuristic_company": "Fidelity National Information Services, Inc",
+  "heuristic_fy": 2016,
+  "source": "llm",
+  "ticker": "FIS"
+ },
+ "9d5c1108a18de3ddb80ba34cb0621b518715afa3": {
+  "company": "Celanese Corporation",
+  "fiscal_year": 2016,
+  "heuristic_company": "Celanese Corporation",
+  "heuristic_fy": 2016,
+  "source": "llm",
+  "ticker": "CE"
+ },
+ "9d649b3ef92e1e86abdb2af7af96c4f008519f13": {
+  "company": "Snap-on Incorporated",
+  "fiscal_year": 2013,
+  "heuristic_company": "Documents Incorporated BY Reference",
+  "heuristic_fy": 2013,
+  "source": "llm",
+  "ticker": "SNA"
+ },
+ "a0158bc73f6e2ae431b038cf2342b73618fb126f": {
+  "company": "Motorola, Inc.",
+  "fiscal_year": 2008,
+  "heuristic_company": "Motorola, Inc",
+  "heuristic_fy": 2008,
+  "source": "llm",
+  "ticker": "MSI"
+ },
+ "a20a8db845a6a0cf3f4936e5d0bb5bf32d1d297b": {
+  "company": "Citigroup Inc.",
+  "fiscal_year": 2015,
+  "heuristic_company": "Citigroup Inc",
+  "heuristic_fy": 2015,
+  "source": "llm",
+  "ticker": "C"
+ },
+ "a2b2a482a69f255ce9f76418c768dbfc910d5563": {
+  "company": "The Kraft Heinz Company",
+  "fiscal_year": 2018,
+  "heuristic_company": "The Kraft Heinz Company",
+  "heuristic_fy": 2018,
+  "source": "llm",
+  "ticker": "KHC"
+ },
+ "a544286ff02971d7cdb0da4ec9403babb7f8ef70": {
+  "company": "American Tower Corporation",
+  "fiscal_year": 2003,
+  "heuristic_company": "American Tower Corporation",
+  "heuristic_fy": 2003,
+  "source": "llm",
+  "ticker": "AMT"
+ },
+ "a56ef13ea8d688703122bc7dfa1e8e657e8bcec3": {
+  "company": "The PNC Financial Services Group, Inc.",
+  "fiscal_year": 2012,
+  "heuristic_company": "the PNC Financial Services Group, Inc",
+  "heuristic_fy": 2012,
+  "source": "llm",
+  "ticker": "PNC"
+ },
+ "a81990f3638c17e566a992353da9fafdceda864f": {
+  "company": "Adobe Systems Incorporated",
+  "fiscal_year": 2008,
+  "heuristic_company": "Adobe Systems Incorporated",
+  "heuristic_fy": 2008,
+  "source": "llm",
+  "ticker": "ADBE"
+ },
+ "a832c5e5fe6880607d8424fa052dea9c686e7689": {
+  "company": "JPMorgan Chase & Co.",
+  "fiscal_year": 2014,
+  "heuristic_company": "JPMorgan Chase & Co",
+  "heuristic_fy": 2014,
+  "source": "llm",
+  "ticker": "JPM"
+ },
+ "a859a4ba12914e5f833dc6859032f5edab5615cb": {
+  "company": "Fidelity National Information Services, Inc.",
+  "fiscal_year": 2006,
+  "heuristic_company": "Fidelity National Information Services, Inc",
+  "heuristic_fy": 2006,
+  "source": "llm",
+  "ticker": "FIS"
+ },
+ "a8f0534989ca6a456d4f43aa575b171ee62a96ab": {
+  "company": "J.P. Morgan Chase & Co.",
+  "fiscal_year": 2003,
+  "heuristic_company": "J.P. Morgan Chase & Co",
+  "heuristic_fy": 2003,
+  "source": "llm",
+  "ticker": "JPM"
+ },
+ "a91964b2337c3494b0d1b03a3b29ca25f005afbd": {
+  "company": "American Airlines Group Inc.",
+  "fiscal_year": 2013,
+  "heuristic_company": "American Airlines Group Inc",
+  "heuristic_fy": 2013,
+  "source": "llm",
+  "ticker": "AAL"
+ },
+ "a997b2817c7d7dc4c74d3916d325ae2767f4f00c": {
+  "company": "State Street Corporation",
+  "fiscal_year": 2007,
+  "heuristic_company": "State Street Corporation",
+  "heuristic_fy": 2007,
+  "source": "llm",
+  "ticker": "STT"
+ },
+ "abea76a802138b0a4f2d6057da741228f038ee8e": {
+  "company": "Entergy Corporation",
+  "fiscal_year": 2017,
+  "heuristic_company": "Entergy Mississippi, Inc",
+  "heuristic_fy": 2017,
+  "source": "llm",
+  "ticker": "ETR"
+ },
+ "afe4e1c191e26accb08fdb8a05c140b43d2d752f": {
+  "company": "Global Payments Inc.",
+  "fiscal_year": 2008,
+  "heuristic_company": "Global Payments Inc",
+  "heuristic_fy": 2008,
+  "source": "llm",
+  "ticker": "GPN"
+ },
+ "b2f2671376f5244c38b7320306ad7a305ccf807a": {
+  "company": "Aon Corporation",
+  "fiscal_year": 2010,
+  "heuristic_company": "Aon Corporation",
+  "heuristic_fy": 2010,
+  "source": "llm",
+  "ticker": "AON"
+ },
+ "b334ee024ecc2b82a4af3a8541a332e09db51011": {
+  "company": "Entergy Corporation",
+  "fiscal_year": 2015,
+  "heuristic_company": "Documents Incorporated BY Reference",
+  "heuristic_fy": 2015,
+  "source": "llm",
+  "ticker": "ETR"
+ },
+ "b408f32e652e45b3e0ba72088f6b594ae2140b42": {
+  "company": "Republic Services, Inc.",
+  "fiscal_year": 2010,
+  "heuristic_company": "Republic Services, Inc",
+  "heuristic_fy": 2010,
+  "source": "llm",
+  "ticker": "RSG"
+ },
+ "b41a7a3315ae3ec91dbffee1b069f3b3cb74a73f": {
+  "company": "Dollar General Corporation",
+  "fiscal_year": 2006,
+  "heuristic_company": "Dollar General Corporation",
+  "heuristic_fy": 2006,
+  "source": "llm",
+  "ticker": "DG"
+ },
+ "b445328650e15d0f1a04eb7c837a7b923f28f9ae": {
+  "company": "Marathon Oil Corporation",
+  "fiscal_year": 2013,
+  "heuristic_company": "Marathon Oil Corporation",
+  "heuristic_fy": 2013,
+  "source": "llm",
+  "ticker": "MRO"
+ },
+ "b4e9b757e0ad5eb567758cd09c46ec845b26b68c": {
+  "company": "Zimmer Holdings, Inc.",
+  "fiscal_year": 2008,
+  "heuristic_company": "Zimmer Holdings, Inc",
+  "heuristic_fy": 2008,
+  "source": "llm",
+  "ticker": "ZMH"
+ },
+ "b5ece3ae02478c45a2978d70fbe3b29cc258014c": {
+  "company": "Comcast Corporation",
+  "fiscal_year": 2015,
+  "heuristic_company": "Comcast Corporation",
+  "heuristic_fy": 2015,
+  "source": "llm",
+  "ticker": "CMCSA"
+ },
+ "b6fc53a70197560aadc7e0076f2c3fb59958ec01": {
+  "company": "Citigroup Inc.",
+  "fiscal_year": 2018,
+  "heuristic_company": "Citigroup Inc",
+  "heuristic_fy": 2018,
+  "source": "llm",
+  "ticker": "C"
+ },
+ "b843efde7184a03029e28fed4453216742c008ed": {
+  "company": "Alcoa Inc.",
+  "fiscal_year": 2015,
+  "heuristic_company": "Alcoa Inc",
+  "heuristic_fy": 2015,
+  "source": "llm",
+  "ticker": "AA"
+ },
+ "b89c3b19d291921ffa08db16d0e63b1fab95c02c": {
+  "company": "State Street Corporation",
+  "fiscal_year": 2011,
+  "heuristic_company": "State Street Corporation",
+  "heuristic_fy": 2011,
+  "source": "llm",
+  "ticker": "STT"
+ },
+ "ba3f95a704d928a033ab937c297a456bdc8949eb": {
+  "company": "Apple Computer, Inc.",
+  "fiscal_year": 2006,
+  "heuristic_company": "Apple Computer, Inc",
+  "heuristic_fy": 2006,
+  "source": "llm",
+  "ticker": "AAPL"
+ },
+ "bc4ca8ff9d70807223ce705c4738a6ae993d7f18": {
+  "company": "CDW Corporation",
+  "fiscal_year": 2015,
+  "heuristic_company": "CDW Corporation",
+  "heuristic_fy": 2015,
+  "source": "llm",
+  "ticker": "CDW"
+ },
+ "bf2463da4cb1b75898f17849f44877c72d6b71d5": {
+  "company": "Ecolab Inc.",
+  "fiscal_year": 2016,
+  "heuristic_company": "Ecolab Inc",
+  "heuristic_fy": 2016,
+  "source": "llm",
+  "ticker": "ECL"
+ },
+ "bf611e648e7838de0cc30d902c4968dfdc938797": {
+  "company": "Merck & Co., Inc.",
+  "fiscal_year": 2013,
+  "heuristic_company": "Incorporated in New Jersey",
+  "heuristic_fy": 2013,
+  "source": "llm",
+  "ticker": "MRK"
+ },
+ "bfe4c52401e9d44fb7f2b6a43478d509703a8fb3": {
+  "company": "Hologic, Inc.",
+  "fiscal_year": 2009,
+  "heuristic_company": "Hologic, Inc",
+  "heuristic_fy": 2009,
+  "source": "llm",
+  "ticker": "HOLX"
+ },
+ "c2b0e92059df6313f2bf94760ff8bca3bfe6c906": {
+  "company": "Marathon Oil Corporation",
+  "fiscal_year": 2017,
+  "heuristic_company": "Marathon Oil Corporation",
+  "heuristic_fy": 2017,
+  "source": "llm",
+  "ticker": "MRO"
+ },
+ "c3bb5ede547bc1873f80621ee643e3719ad05a0b": {
+  "company": "Snap-on Incorporated",
+  "fiscal_year": 2018,
+  "heuristic_company": "Smaller reporting company ☐    Emerging growth company ☐",
+  "heuristic_fy": 2018,
+  "source": "llm",
+  "ticker": "SNA"
+ },
+ "c462de2f5cd5f49dbc361cece4f8992e0a5c4b09": {
+  "company": "DXC Technology Company",
+  "fiscal_year": 2019,
+  "heuristic_company": "DXC Technology Company",
+  "heuristic_fy": 2019,
+  "source": "llm",
+  "ticker": "DXC"
+ },
+ "c553b34b6358296f008986b60f8f1c611e16c294": {
+  "company": "American Tower Corporation",
+  "fiscal_year": 2012,
+  "heuristic_company": "American Tower Corporation",
+  "heuristic_fy": 2012,
+  "source": "llm",
+  "ticker": "AMT"
+ },
+ "c865db8391ee39bfef9b0f221fac3a5245e231b3": {
+  "company": "Emerson Electric Co.",
+  "fiscal_year": 2017,
+  "heuristic_company": "Emerson Electric Co",
+  "heuristic_fy": 2017,
+  "source": "llm",
+  "ticker": "EMR"
+ },
+ "c88d0ecf7603819eaa18a1f21d59d0583a9e57fd": {
+  "company": "CME Group Inc.",
+  "fiscal_year": 2010,
+  "heuristic_company": "CME Group Inc",
+  "heuristic_fy": 2010,
+  "source": "llm",
+  "ticker": "CME"
+ },
+ "c96cbde980d91c03914bacd694fee5efe5f63e62": {
+  "company": "American Tower Corporation",
+  "fiscal_year": 2016,
+  "heuristic_company": "American Tower Corporation",
+  "heuristic_fy": 2016,
+  "source": "llm",
+  "ticker": "AMT"
+ },
+ "cb14bf2b3f8b44cf6a37b133074db3864832ea6a": {
+  "company": "Hologic, Inc.",
+  "fiscal_year": 2008,
+  "heuristic_company": "Hologic, Inc",
+  "heuristic_fy": 2008,
+  "source": "llm",
+  "ticker": "HOLX"
+ },
+ "cd7c57c92351e1b5a8b65af108008edf622c49e1": {
+  "company": "Aon Corporation",
+  "fiscal_year": 2007,
+  "heuristic_company": "Aon Corporation",
+  "heuristic_fy": 2007,
+  "source": "llm",
+  "ticker": "AON"
+ },
+ "ce4e89e6ba94279f43665a7d8faf5bf464eb48b4": {
+  "company": "Intel Corporation",
+  "fiscal_year": 2013,
+  "heuristic_company": "Intel Corporation",
+  "heuristic_fy": 2013,
+  "source": "llm",
+  "ticker": "INTC"
+ },
+ "ce9a0f69e2e941dddc772f77ded16cdeeb8dfced": {
+  "company": "Norwegian Cruise Line Holdings Ltd.",
+  "fiscal_year": 2018,
+  "heuristic_company": "Norwegian Cruise Line Holdings Ltd",
+  "heuristic_fy": 2018,
+  "source": "llm",
+  "ticker": "NCLH"
+ },
+ "d47d61749fe599179ebf4de39a5fc1f5af3b1a7a": {
+  "company": "Dominion Resources, Inc.",
+  "fiscal_year": 2002,
+  "heuristic_company": "Dominion Resources, Inc",
+  "heuristic_fy": 2002,
+  "source": "llm",
+  "ticker": "D"
+ },
+ "d65780fad9677970a67366df690ffb6467571148": {
+  "company": "WestRock Company",
+  "fiscal_year": 2018,
+  "heuristic_company": "Westrock Company",
+  "heuristic_fy": 2018,
+  "source": "llm",
+  "ticker": "WRK"
+ },
+ "d7f33f42eaaf52bc5cd09385bfa7b660281da018": {
+  "company": "Marriott International, Inc.",
+  "fiscal_year": 2004,
+  "heuristic_company": "Marriott International, Inc",
+  "heuristic_fy": 2004,
+  "source": "llm",
+  "ticker": "MAR"
+ },
+ "db2c20c3233b03967a7b472da0325787d91c5022": {
+  "company": "Morgan Stanley",
+  "fiscal_year": 2007,
+  "heuristic_company": "The NASDAQ Stock Market LLC",
+  "heuristic_fy": 2007,
+  "source": "manual",
+  "ticker": "MS"
+ },
+ "db700a14f54a8efd66f24b75c9d9bc9f207c6686": {
+  "company": "The Goldman Sachs Group, Inc.",
+  "fiscal_year": 2017,
+  "heuristic_company": "The Goldman Sachs Group, Inc",
+  "heuristic_fy": 2017,
+  "source": "llm",
+  "ticker": "GS"
+ },
+ "dbb7d10ac82800c5deca9686b8eaa0c28cd74a5c": {
+  "company": "Altria Group, Inc.",
+  "fiscal_year": 2014,
+  "heuristic_company": "Altria Group, Inc",
+  "heuristic_fy": 2014,
+  "source": "llm",
+  "ticker": "MO"
+ },
+ "dd6847c8d2ccbeec5aaa072a45e4a603f7ed4b32": {
+  "company": "Marathon Oil Corporation",
+  "fiscal_year": 2006,
+  "heuristic_company": "Marathon Oil Corporation",
+  "heuristic_fy": 2006,
+  "source": "llm",
+  "ticker": "MRO"
+ },
+ "dd751a3d76068cc9c275f1bbb1f990ce255f6a7a": {
+  "company": "American Airlines Group Inc.",
+  "fiscal_year": 2016,
+  "heuristic_company": "American Airlines Group Inc",
+  "heuristic_fy": 2016,
+  "source": "llm",
+  "ticker": "AAL"
+ },
+ "e0a8d724481d4ca0354f62f3d46d02d04a00ba1d": {
+  "company": "Visa Inc.",
+  "fiscal_year": 2008,
+  "heuristic_company": "Visa Inc",
+  "heuristic_fy": 2008,
+  "source": "llm",
+  "ticker": "V"
+ },
+ "e2ebab057b741797cfdd3aeb5cd20534bc0a01b0": {
+  "company": "The PNC Financial Services Group, Inc.",
+  "fiscal_year": 2008,
+  "heuristic_company": "the PNC Financial Services Group, Inc",
+  "heuristic_fy": 2008,
+  "source": "llm",
+  "ticker": "PNC"
+ },
+ "e3f7e480719eeb3ba09adfac745f61c63cbd6138": {
+  "company": "American Water Works Company, Inc.",
+  "fiscal_year": 2013,
+  "heuristic_company": "American Water Works Company, Inc",
+  "heuristic_fy": 2013,
+  "source": "llm",
+  "ticker": "AWK"
+ },
+ "e512c853cb4945b376d144ef0b3c9ba672c9b148": {
+  "company": "Global Payments Inc.",
+  "fiscal_year": 2018,
+  "heuristic_company": "Global Payments Inc",
+  "heuristic_fy": 2018,
+  "source": "llm",
+  "ticker": "GPN"
+ },
+ "e74b6edde91353e2475395dbfa365c8241134b12": {
+  "company": "American Airlines Group Inc.",
+  "fiscal_year": 2015,
+  "heuristic_company": "American Airlines Group Inc",
+  "heuristic_fy": 2015,
+  "source": "llm",
+  "ticker": "AAL"
+ },
+ "e90fe1db2ff4ab88998e4c501a692c1e461369b1": {
+  "company": "ACE Limited",
+  "fiscal_year": 2010,
+  "heuristic_company": "ACE Limited",
+  "heuristic_fy": 2010,
+  "source": "llm",
+  "ticker": "ACE"
+ },
+ "f07d34aa414b1558e892c26c6ad66ba777e9de65": {
+  "company": "News Corporation",
+  "fiscal_year": 2019,
+  "heuristic_company": "News Corporation",
+  "heuristic_fy": 2019,
+  "source": "llm",
+  "ticker": "NWS"
+ },
+ "f140d05093b05f016ca9516760b1c168066e84a3": {
+  "company": "PPG Industries, Inc.",
+  "fiscal_year": 2008,
+  "heuristic_company": "PPG Industries, Inc",
+  "heuristic_fy": 2008,
+  "source": "llm",
+  "ticker": "PPG"
+ },
+ "f1f114ba1fd01b5c6d5da2b14d12194546e852f0": {
+  "company": "Republic Services, Inc.",
+  "fiscal_year": 2018,
+  "heuristic_company": "Republic Services, Inc",
+  "heuristic_fy": 2018,
+  "source": "llm",
+  "ticker": "RSG"
+ },
+ "f4d24cc0a652801e77a1905895824cf98e0c562a": {
+  "company": "Air Products and Chemicals, Inc.",
+  "fiscal_year": 2016,
+  "heuristic_company": "AIR Products and Chemicals, Inc",
+  "heuristic_fy": 2016,
+  "source": "llm",
+  "ticker": "APD"
+ },
+ "f80df06313a8887c4718d4ad33e694204a5e2ed9": {
+  "company": "American Tower Corporation",
+  "fiscal_year": 2008,
+  "heuristic_company": "American Tower Corporation",
+  "heuristic_fy": 2008,
+  "source": "llm",
+  "ticker": "AMT"
+ },
+ "f82f4cbbfb62b26e7c10050e62fad7f818756eb5": {
+  "company": "United Parcel Service, Inc.",
+  "fiscal_year": 2007,
+  "heuristic_company": "United Parcel Service, Inc",
+  "heuristic_fy": 2007,
+  "source": "llm",
+  "ticker": "UPS"
+ },
+ "f93388cd8affe1cd24b729085c126e04f5bee97c": {
+  "company": "Marathon Oil Corporation",
+  "fiscal_year": 2007,
+  "heuristic_company": "Marathon Oil Corporation",
+  "heuristic_fy": 2007,
+  "source": "llm",
+  "ticker": "MRO"
+ },
+ "fa24bb17584b862de6c314ee3357864f898c8fd4": {
+  "company": "BlackRock, Inc.",
+  "fiscal_year": 2013,
+  "heuristic_company": "BlackRock, Inc",
+  "heuristic_fy": 2013,
+  "source": "llm",
+  "ticker": "BLK"
+ },
+ "fba4158ad90620bab9c7942ec37eed91c6617f4b": {
+  "company": "JPMorgan Chase & Co.",
+  "fiscal_year": 2015,
+  "heuristic_company": "JPMorgan Chase & Co",
+  "heuristic_fy": 2015,
+  "source": "llm",
+  "ticker": "JPM"
+ },
+ "fbb5bb1ee0dd5274462edb91be53cb7572a63bed": {
+  "company": "Union Pacific Corporation",
+  "fiscal_year": 2016,
+  "heuristic_company": "Union Pacific Corporation",
+  "heuristic_fy": 2016,
+  "source": "llm",
+  "ticker": "UNP"
+ },
+ "fbc3564a463c0975fe02cf7af113a41f183d8715": {
+  "company": "Union Pacific Corporation",
+  "fiscal_year": 2006,
+  "heuristic_company": "Union Pacific Corporation",
+  "heuristic_fy": 2006,
+  "source": "llm",
+  "ticker": "UNP"
+ },
+ "ff933e2ab3a6aec4f5d56fc295928341396f4247": {
+  "company": "The Goldman Sachs Group, Inc.",
+  "fiscal_year": 2014,
+  "heuristic_company": "The Goldman Sachs Group, Inc",
+  "heuristic_fy": 2014,
+  "source": "llm",
+  "ticker": "GS"
+ }
+}

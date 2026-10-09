@@ -152,3 +152,9 @@ qgen-estimate:    ## Bharat: estimate Claude cost of question generation
 
 qgen-bharat:      ## Bharat: generate + filter questions and the spot-check pack (Claude, ~$4)
 	POC_DATASET=bharat uv run python -m poc.qgen.run all
+
+ontology-smoke:   ## grounded pipeline on 3 questions (quick check for any DATASET)
+	LLM_MAX_INFLIGHT=$(or $(INFLIGHT),4) uv run python -m poc.retrieval.grounded.run --limit 3 --out answers-ontology-smoke.jsonl --fresh
+
+judge-spot:       ## judge only the first 5 answers of each arm (cheap check)
+	uv run python -m poc.eval.judge $(ARMS) --limit 5

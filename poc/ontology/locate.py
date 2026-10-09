@@ -9,6 +9,11 @@ The primary statements sit together in Item 8 (or the back of an earnings releas
 combination of candidate pages that maximises total score minus a page-span penalty, instead of
 taking each kind independently (which picks up MD&A summary tables).
 The page after a selected page is added when the statement visibly continues.
+
+Text corpora (DocFinQA) have markdown pipe tables on ~3,000-char pseudo-pages instead of PDF pages, so a
+statement title can sit anywhere on the page, directly above its table. For pages with a pipe table
+(>= 5 lines starting with "|") the title window is the text immediately preceding the page's largest
+table (plus its first row) instead of the page top; PDF pages never take this branch.
 """
 import itertools
 import re
@@ -35,13 +40,33 @@ def _squash(s: str) -> str:
     return re.sub(r"[^a-z]", "", s.lower())
 
 
+def _md_head(text: str) -> tuple[str, str] | None:
+    """(title window, raw preceding text) for a markdown page: text right above its largest pipe table."""
+    lines = text.split("\n")
+    blocks, start = [], None
+    for i, ln in enumerate(lines + [""]):
+        is_t = ln.lstrip().startswith("|")
+        if is_t and start is None:
+            start = i
+        elif not is_t and start is not None:
+            blocks.append((start, i))
+            start = None
+    if sum(b - a for a, b in blocks) < 5:
+        return None
+    a, b = max(blocks, key=lambda x: x[1] - x[0])
+    prev_end = max([e for s0, e in blocks if e <= a], default=0)
+    pre = "\n".join(lines[prev_end:a])[-600:]
+    return _squash(pre)[-250:] + _squash(lines[a])[:50], pre
+
+
 def score_page(text: str, kind: str) -> float:
-    head = _squash(text[:2500])[:300]
+    md = _md_head(text)
+    head = md[0] if md else _squash(text[:2500])[:300]
     m = TITLE[kind].search(head)
     if not m:
         return 0.0
     low = text.lower()
-    if re.search(r"report of independent|we have audited|in our opinion", low):
+    if re.search(r"report of independent|we have audited|in our opinion", md[1].lower() if md else low):
         return 0.0
     if kind == "income" and "comprehensiveincome" in head and not re.search(r"(revenue|net sales|total sales)", low):
         return 0.0
