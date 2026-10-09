@@ -15,9 +15,24 @@ across rebuilds -- the interpretation is written once and read many times.
 """
 from __future__ import annotations
 
+import os
+import shutil
+
 import duckdb
 
-RAM_TOTAL_GB = 128.0
+
+def _ram_total_gb() -> float:
+    try:
+        return os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES") / 2**30
+    except (ValueError, OSError, AttributeError):
+        return 128.0
+
+
+# Host RAM of the device being interpreted (override when analysing another machine's telemetry).
+RAM_TOTAL_GB = float(os.getenv("TELEMETRY_RAM_TOTAL_GB") or _ram_total_gb())
+# Temperature thresholds differ by hardware: Apple GPU die vs NVIDIA data-centre GPU
+# (H100 slows down around 85-90 °C). TELEMETRY_PROFILE=apple|nvidia, default from nvidia-smi presence.
+PROFILE = os.getenv("TELEMETRY_PROFILE") or ("nvidia" if shutil.which("nvidia-smi") else "apple")
 
 # Thresholds (documented so the rules are auditable).
 T = dict(
@@ -25,13 +40,15 @@ T = dict(
     busy_gpu=0.50,          # gpu_active above this => GPU busy
     saturated_gpu=0.85,
     serving_conc=0.05,      # avg in-flight LLM requests that counts as serving
-    temp_warm=75.0, temp_hot=95.0, temp_crit=102.0,   # °C, Apple GPU die avg
+    temp_warm=75.0, temp_hot=95.0, temp_crit=102.0,   # °C, Apple GPU die avg (nvidia below)
     z_temp=3.0, temp_slope=3.0,                       # °C/min rise with z>=3 => excursion
     z_w_per_util=3.0,       # power per unit GPU activity vs baseline
     tok_drop=0.5,           # throughput < 50% of busy baseline while GPU busy
     err_burst=2,            # error lines in one window
     swap_jump_gb=0.5, ram_frac_crit=0.92,
 )
+if PROFILE == "nvidia":
+    T.update(temp_warm=70.0, temp_hot=83.0, temp_crit=88.0)
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS window_explanations (

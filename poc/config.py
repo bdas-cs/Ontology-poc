@@ -21,7 +21,9 @@ DATASET = os.getenv("POC_DATASET", "financebench")
 DATA_DIR = Path(os.path.expanduser(os.getenv("POC_DATA_DIR", "~/ontology-poc-data")))
 DATASET_DIR = DATA_DIR / DATASET
 DB_DIR = DATASET_DIR / "db"
-RUNS_DIR = DATASET_DIR / "runs"
+# POC_RUNS_SUBDIR=runs-gpu points judge/report/cost at results pulled back from the GPU
+# droplet (scripts/pull_results.sh) without touching the Mac's own runs/.
+RUNS_DIR = DATASET_DIR / os.getenv("POC_RUNS_SUBDIR", "runs")
 TELEMETRY_DIR = DATA_DIR / "telemetry"
 # Kept for the FinanceBench adapter (raw repo checkout lives here).
 FINANCEBENCH_DIR = DATA_DIR / "financebench"

@@ -5,6 +5,8 @@ gold_doc_hit / gold_page_hit diagnostics, never to filter.
 
   LLM_MAX_INFLIGHT=8 uv run python -m poc.retrieval.chunk.answer --k 10
   LLM_MAX_INFLIGHT=8 uv run python -m poc.retrieval.chunk.answer --k 20 --out answers-chunk-k20.jsonl
+  # repeat runs for confidence intervals (make chunk-answer-repeat REPEAT=3):
+  ... --out answers-chunk-r2.jsonl --temperature 0.6
 """
 import argparse
 import asyncio
@@ -39,13 +41,14 @@ def build_prompt(question: str, hits: list[dict]) -> str:
 
 
 THINKING = False  # --thinking: control run matching the ontology arm's answer step
+TEMPERATURE = 0.0  # --temperature: >0 for repeat runs that should sample, not just replay
 
 
 async def answer_one(q: dict, hits: list[dict], max_tokens: int) -> dict:
     t0 = time.perf_counter()
     out = await llm.chat(
         [{"role": "system", "content": SYSTEM}, {"role": "user", "content": build_prompt(q["question"], hits)}],
-        tag="chunk-answer", max_tokens=max_tokens, thinking=THINKING, temperature=0.0,
+        tag="chunk-answer", max_tokens=max_tokens, thinking=THINKING, temperature=TEMPERATURE,
     )
     u = dict(out["usage"])
     content, retried = out["content"], False
@@ -62,7 +65,7 @@ async def answer_one(q: dict, hits: list[dict], max_tokens: int) -> dict:
         out = {**out, "wall_s": out["wall_s"] + out2["wall_s"]}
     return {
         "qid": q["qid"], "arm": "chunk", "answer": content, "truncated_retry": retried,
-        "thinking": THINKING,
+        "thinking": THINKING, "temperature": TEMPERATURE,
         "retrieved": [{"doc_name": h["doc_name"], "page": h["page_start"], "page_end": h["page_end"],
                        "score": round(float(h["score"]), 4)} for h in hits],
         **hit_stats(q, hits),
@@ -96,9 +99,10 @@ def main() -> None:
     ap.add_argument("--out", default="answers-chunk.jsonl")
     ap.add_argument("--fresh", action="store_true", help="ignore a previous partial run")
     ap.add_argument("--thinking", action="store_true", help="enable reasoning (use with --max-tokens 4000)")
+    ap.add_argument("--temperature", type=float, default=0.0)
     a = ap.parse_args()
-    global THINKING
-    THINKING = a.thinking
+    global THINKING, TEMPERATURE
+    THINKING, TEMPERATURE = a.thinking, a.temperature
     all_qs = data.questions()[: a.limit or None]
     path = config.RUNS_DIR / a.out
     part = path.with_suffix(".partial.jsonl")
@@ -124,7 +128,7 @@ def main() -> None:
     n = len(rows)
     summary = {
         "out": str(path), "n": n, "missing": missing, "resumed_rows": n - len(new),
-        "note": "wall_s/retrieval_s cover this invocation only; sum llm_wall_s over rows for per-question time", "k": a.k, "table": a.table, "retrieval_s": round(t_ret, 1),
+        "note": "wall_s/retrieval_s cover this invocation only; sum llm_wall_s over rows for per-question time", "k": a.k, "table": a.table, "thinking": a.thinking, "temperature": a.temperature, "retrieval_s": round(t_ret, 1),
         "wall_s": round(wall, 1), "prompt_tokens": sum(r["prompt_tokens"] for r in rows),
         "completion_tokens": sum(r["completion_tokens"] for r in rows),
         "gold_doc_hit": round(sum(r["gold_doc_hit"] for r in rows) / n, 3),

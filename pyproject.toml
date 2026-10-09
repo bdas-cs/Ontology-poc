@@ -1,10 +1,12 @@
 [project]
 name = "ontology-poc"
 version = "0.1.0"
-description = "Local POC: ontology-grounded vs chunk RAG on FinanceBench with a self-hosted open model"
+description = "POC: ontology-grounded vs chunk RAG with a self-hosted open model (Apple silicon via MLX, NVIDIA via vLLM)"
 requires-python = ">=3.12,<3.13"
 dependencies = [
-    "mlx-lm>=0.28",
+    # LLM server: mlx_lm.server on Apple silicon, vLLM on a Linux CUDA box (scripts/serve_vllm.sh).
+    "mlx-lm>=0.28 ; sys_platform == 'darwin'",
+    "vllm>=0.19 ; sys_platform == 'linux' and platform_machine == 'x86_64'",
     "openai>=1.50",
     "httpx>=0.27",
     "anthropic>=0.60",
@@ -17,7 +19,13 @@ dependencies = [
     "python-dotenv>=1.0",
     "rich>=13",
     "pytz>=2026.4",
+    "huggingface_hub>=1.0",
 ]
 
 [tool.uv]
 package = false
+# Only resolve for the two machines this runs on: the Mac and a Linux x86_64 GPU server.
+environments = [
+    "sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+]

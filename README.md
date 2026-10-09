@@ -23,12 +23,32 @@ Reading: ~10.6 of the 14.6-point gain is reasoning; structure adds ~4 overall (n
 Reproduce the control with `make chunk-thinking && make judge ARMS=chunk-think`.
 
 ## Stack
-- **LLM:** `mlx-community/Qwen3.6-35B-A3B-8bit` via `mlx_lm.server` (OpenAI-compatible, :8091 — 8080 is taken by Docker).
+- **LLM:** `mlx-community/Qwen3.6-35B-A3B-8bit` via `mlx_lm.server` (OpenAI-compatible, :8091 — 8080 is taken by Docker);
+  on a Linux GPU box `Qwen/Qwen3.6-35B-A3B-FP8` via vLLM on the same port (`make serve-gpu`).
   Compare later with llama.cpp `ggml-org/Qwen3.6-35B-A3B-GGUF` Q8_0 for parallel-slot batching.
 - **Embeddings:** `Qwen/Qwen3-Embedding-0.6B` (sentence-transformers on MPS).
 - **Ontology store:** DuckDB (typed object tables + links table). **Vectors:** LanceDB.
 - **Judge:** Claude (`JUDGE_MODEL`), strict + expanded scoring, human spot-check of ~20.
 - Data, venv, DBs and run ledgers live in `~/ontology-poc-data` (outside OneDrive).
+
+## Datasets
+Select with `DATASET=<name>` on any make target (exported as `POC_DATASET`); each keeps its own
+`~/ontology-poc-data/<name>/{db,runs}`. Run `make download pages DATASET=<name>` first.
+
+| name | source | licence |
+|---|---|---|
+| `financebench` | [patronus-ai/financebench](https://github.com/patronus-ai/financebench) (HF [PatronusAI/financebench](https://huggingface.co/datasets/PatronusAI/financebench)) | CC BY-NC 4.0 (per HF card) |
+| `docfinqa` | [kensho/DocFinQA](https://huggingface.co/datasets/kensho/DocFinQA) | MIT |
+| `cuad` | [theatticusproject/cuad](https://huggingface.co/datasets/theatticusproject/cuad) | CC BY 4.0 |
+| `bharat` | [ankitjh4/bharat-government-documents](https://huggingface.co/datasets/ankitjh4/bharat-government-documents) | no blanket licence ("other"): research use only, do not redistribute document text |
+
+Raw data, parsed pages and run outputs stay outside the repo and are never committed.
+
+## Run on a GPU
+The same pipelines run on a rented NVIDIA H100 with vLLM (`Qwen/Qwen3.6-35B-A3B-FP8`):
+`make serve-gpu` + `scripts/gpu_run.sh` on the server, `make pull-results HOST=<ip>` back on
+the Mac (into `runs-gpu/`, never over Mac results), judging stays on the Mac.
+Step-by-step DigitalOcean runbook, costs and caveats: [docs/GPU.md](docs/GPU.md).
 
 ## Phases
 0. **Setup + smoke** (½ d): `make setup data model`, `make serve`, `make smoke`.

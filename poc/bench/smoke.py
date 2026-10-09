@@ -3,7 +3,8 @@
 Default: one request with reasoning on, one with reasoning off, reporting
 latency, tokens/sec and how much of the output was reasoning.
 --sweep 1,2,4,8: N concurrent requests per level, reporting aggregate tokens/sec.
-Every call is appended to the run ledger (runs/bench-<ts>.jsonl).
+Every call is written to a run ledger: runs/bench-<kind>-<ts>.jsonl, or
+runs/bench-<kind>-<tag>.jsonl with --tag (stable name, used by scripts/gpu_run.sh to resume).
 """
 import argparse
 import asyncio
@@ -63,8 +64,11 @@ async def call(client: httpx.AsyncClient, thinking: bool, max_tokens: int, promp
     }
 
 
+RUN_TAG = ""
+
+
 def ledger(rows: list[dict], tag: str) -> None:
-    path = config.RUNS_DIR / f"bench-{tag}-{int(time.time())}.jsonl"
+    path = config.RUNS_DIR / f"bench-{tag}-{RUN_TAG or int(time.time())}.jsonl"
     with path.open("w") as f:
         for row in rows:
             f.write(json.dumps(row) + "\n")
@@ -87,7 +91,9 @@ async def single(max_tokens: int) -> None:
 
 async def sweep(levels: list[int], thinking: bool, max_tokens: int) -> None:
     rows, table = [], Table("concurrency", "wall s", "total out tok", "aggregate tok/s", "per-req tok/s")
-    async with httpx.AsyncClient(timeout=1200, limits=httpx.Limits(max_connections=64)) as client:
+    conns = max(64, max(levels))
+    limits = httpx.Limits(max_connections=conns, max_keepalive_connections=conns)
+    async with httpx.AsyncClient(timeout=1800, limits=limits) as client:
         await call(client, False, 16)  # warm-up
         for n in levels:
             t0 = time.perf_counter()
@@ -96,7 +102,7 @@ async def sweep(levels: list[int], thinking: bool, max_tokens: int) -> None:
             out = sum(r["completion_tokens"] for r in res)
             per_req = sum(r["tok_per_s"] for r in res) / n
             table.add_row(str(n), f"{wall:.1f}", str(out), f"{out / wall:.1f}", f"{per_req:.1f}")
-            rows += [{**r, "concurrency": n} for r in res]
+            rows += [{**r, "concurrency": n, "level_wall_s": round(wall, 3)} for r in res]
     console.print(table)
     ledger(rows, "sweep")
 
@@ -106,7 +112,10 @@ def main() -> None:
     p.add_argument("--sweep", help="comma-separated concurrency levels, e.g. 1,2,4,8")
     p.add_argument("--thinking", action="store_true", help="enable reasoning in sweep")
     p.add_argument("--max-tokens", type=int, default=600)
+    p.add_argument("--tag", default="", help="ledger name suffix instead of a timestamp")
     a = p.parse_args()
+    global RUN_TAG
+    RUN_TAG = a.tag
     if a.sweep:
         asyncio.run(sweep([int(x) for x in a.sweep.split(",")], a.thinking, a.max_tokens))
     else:

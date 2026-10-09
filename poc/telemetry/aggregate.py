@@ -20,7 +20,7 @@ import os
 import duckdb
 
 WINDOWS = {60: 15, 300: 6, 900: 3}  # window_s -> trailing baseline length K
-SAMPLE_PERIOD_S = 1.0
+SAMPLE_PERIOD_S = int(os.getenv("TELEMETRY_INTERVAL_MS", "1000")) / 1000  # must match the collector
 # LLM ledger rows are written when a request *completes*, and requests can run for minutes,
 # so a window is only emitted once it has been closed for SETTLE_S seconds (late rows settled).
 SETTLE_S = int(os.getenv("TELEMETRY_SETTLE_S", "720"))
