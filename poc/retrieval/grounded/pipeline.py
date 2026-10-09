@@ -343,7 +343,7 @@ def _embedder():
     if _EMB is None:
         from sentence_transformers import SentenceTransformer
         from poc import config
-        _EMB = SentenceTransformer(config.EMBED_MODEL, device="mps")
+        _EMB = SentenceTransformer(config.EMBED_MODEL, device=config.torch_device())
     return _EMB
 
 

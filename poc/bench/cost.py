@@ -43,7 +43,7 @@ def busy_hours(df: pd.DataFrame) -> float:
 
 
 def measured_watts() -> float | None:
-    path = config.DB_DIR / "telemetry.duckdb"
+    path = config.TELEMETRY_DIR / "telemetry.duckdb"
     if not path.exists():
         return None
     try:

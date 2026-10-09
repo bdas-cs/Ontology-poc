@@ -89,7 +89,7 @@ def make_chunks(pages: pd.DataFrame, tok, size: int = 1000, overlap: int = 150) 
 
 def load_embedder():
     from sentence_transformers import SentenceTransformer
-    return SentenceTransformer(config.EMBED_MODEL, device="mps")
+    return SentenceTransformer(config.EMBED_MODEL, device=config.torch_device())
 
 
 def main() -> None:
@@ -124,7 +124,10 @@ def main() -> None:
                            convert_to_numpy=True, show_progress_bar=False)
         for i, e in zip(idx, emb):
             vecs[i] = e
-        torch.mps.empty_cache()
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+        elif torch.cuda.is_available():
+            torch.cuda.empty_cache()
         el = time.perf_counter() - t1
         print(f"  embedded {min(s + B, len(order))}/{len(order)}  {el:.0f}s", flush=True)
     t_embed = time.perf_counter() - t1
@@ -141,7 +144,7 @@ def main() -> None:
         "mean_chunk_tokens": round(embed_tokens / len(chunks), 1),
         "chunk_s": round(t_chunk, 1), "embed_s": round(t_embed, 1),
         "embed_tok_per_s": round(embed_tokens / t_embed, 1), "wall_s": round(wall, 1),
-        "device": "mps", "batch_size": a.batch, "dim": len(vecs[0]), "ts": time.time(),
+        "device": config.torch_device(), "batch_size": a.batch, "dim": len(vecs[0]), "ts": time.time(),
     }
     name = "ingest-chunk.json" if a.table == "chunks" else f"ingest-{a.table}.json"
     (config.RUNS_DIR / name).write_text(json.dumps(stats, indent=2))

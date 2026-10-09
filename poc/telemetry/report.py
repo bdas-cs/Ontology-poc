@@ -151,7 +151,7 @@ def summarize() -> dict:
 
 def main() -> None:
     s = summarize()
-    out = config.RUNS_DIR / "telemetry-summary.json"
+    out = config.TELEMETRY_DIR / "telemetry-summary.json"
     out.write_text(json.dumps(s, indent=2, default=str))
     qa = s.pop("qa")
     print(json.dumps(s, indent=2, default=str))

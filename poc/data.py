@@ -1,36 +1,21 @@
-"""FinanceBench loaders and the shared page store.
+"""Active-dataset facade: `from poc import data` keeps working for every benchmark.
 
-`make pages` parses every PDF referenced by the 150 open-source questions into
-db/pages.parquet (doc_name, page [1-based], text). Both retrieval arms read it.
+The adapter is chosen by POC_DATASET (default financebench); see poc/datasets/__init__.py
+for the interface and the common question schema.
 """
-import json
-from functools import lru_cache
-
 import pandas as pd
 
-from poc import config
+from poc import config, datasets
 
-REPO = config.FINANCEBENCH_DIR / "repo"
-PDF_DIR = REPO / "pdfs"
+_ds = datasets.get()
+NAME = _ds.NAME
 PAGES_PATH = config.DB_DIR / "pages.parquet"
 
-
-@lru_cache
-def questions() -> list[dict]:
-    with (REPO / "data" / "financebench_open_source.jsonl").open() as f:
-        return [json.loads(line) for line in f]
-
-
-@lru_cache
-def doc_info() -> dict[str, dict]:
-    with (REPO / "data" / "financebench_document_information.jsonl").open() as f:
-        rows = [json.loads(line) for line in f]
-    return {r["doc_name"]: r for r in rows}
-
-
-def corpus_docs() -> list[str]:
-    """The evaluation corpus: every filing referenced by the 150 questions (84 docs)."""
-    return sorted({q["doc_name"] for q in questions()})
+questions = _ds.questions
+doc_info = _ds.doc_info
+corpus_docs = _ds.corpus_docs
+build_pages = _ds.build_pages
+download = _ds.download
 
 
 def pages() -> pd.DataFrame:

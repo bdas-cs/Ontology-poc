@@ -1,6 +1,6 @@
 """Judge answers against FinanceBench ground truth.
 
-Input:  runs/answers-<arm>.jsonl   rows: {financebench_id, arm, answer, ...}
+Input:  runs/answers-<arm>.jsonl   rows: {qid, arm, answer, ...}
 Output: runs/judged-<arm>.jsonl    rows: input + {strict, expanded, rationale, judge}
 Prints strict / expanded accuracy overall and by question_type.
 
@@ -80,14 +80,14 @@ async def _judge_local(q: dict, answer: str) -> dict:
 
 
 async def judge_arm(arm: str, local: bool, concurrency: int = 8) -> pd.DataFrame:
-    qs = {q["financebench_id"]: q for q in data.questions()}
+    qs = {q["qid"]: q for q in data.questions()}
     src = config.RUNS_DIR / f"answers-{arm}.jsonl"
     rows = [json.loads(l) for l in src.open()]
     client = None if local else anthropic.AsyncAnthropic()
     sem = asyncio.Semaphore(concurrency)
 
     async def one(row: dict) -> dict:
-        q = qs[row["financebench_id"]]
+        q = qs[row["qid"]]
         async with sem:
             v = await (_judge_local(q, row["answer"]) if local else _judge_claude(client, q, row["answer"]))
         return {**row, **v, "question_type": q["question_type"], "gold": q["answer"]}

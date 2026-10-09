@@ -27,7 +27,7 @@ def dev_ids(n_per_type: int = 7, seed: int = 7) -> list[str]:
     rng = random.Random(seed)
     ids = []
     for i, t in enumerate(sorted({q["question_type"] for q in data.questions()})):
-        pool = [q["financebench_id"] for q in data.questions() if q["question_type"] == t]
+        pool = [q["qid"] for q in data.questions() if q["question_type"] == t]
         ids += rng.sample(pool, n_per_type - (1 if i == 2 else 0))
     DEV_IDS_PATH.write_text(json.dumps(ids, indent=1))
     return ids
@@ -36,8 +36,8 @@ def dev_ids(n_per_type: int = 7, seed: int = 7) -> list[str]:
 async def run(qs: list[dict], arm: str, out_path, plan_thinking: bool) -> None:
     done = set()
     if out_path.exists():
-        done = {json.loads(l)["financebench_id"] for l in out_path.open()}
-    todo = [q for q in qs if q["financebench_id"] not in done]
+        done = {json.loads(l)["qid"] for l in out_path.open()}
+    todo = [q for q in qs if q["qid"] not in done]
     print(f"{len(todo)} to answer ({len(done)} already in {out_path.name})")
     t0 = time.perf_counter()
 
@@ -63,10 +63,10 @@ async def run(qs: list[dict], arm: str, out_path, plan_thinking: bool) -> None:
         # diagnostic only, computed after answering:
         r["resolved_correct_filing"] = q["doc_name"] in r["resolved"]["filings"]
         r["resolved_primary_correct"] = bool(r["resolved"]["filings"]) and r["resolved"]["filings"][0] == q["doc_name"]
-        row = {"financebench_id": q["financebench_id"], "arm": arm, **r}
+        row = {"qid": q["qid"], "arm": arm, **r}
         with out_path.open("a") as f:
             f.write(json.dumps(row) + "\n")
-        print(f"[{q['financebench_id']}] {r['wall_s']}s ok={r['resolved_correct_filing']} {r['answer'][:110]!r}")
+        print(f"[{q['qid']}] {r['wall_s']}s ok={r['resolved_correct_filing']} {r['answer'][:110]!r}")
 
     await asyncio.gather(*(one(q) for q in todo))
     print(f"wall {time.perf_counter() - t0:.0f}s")
@@ -83,9 +83,9 @@ def main() -> None:
     qs = data.questions()
     if a.dev:
         ids = set(dev_ids())
-        qs = [q for q in qs if q["financebench_id"] in ids]
+        qs = [q for q in qs if q["qid"] in ids]
     if a.ids:
-        qs = [q for q in qs if q["financebench_id"] in set(a.ids)]
+        qs = [q for q in qs if q["qid"] in set(a.ids)]
     arm = a.arm or ("ontology-dev" if a.dev else "ontology")
     out = config.RUNS_DIR / f"answers-{arm}.jsonl"
     if a.fresh and out.exists():

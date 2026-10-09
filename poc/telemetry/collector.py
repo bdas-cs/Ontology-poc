@@ -35,8 +35,8 @@ import duckdb
 from poc import config
 
 DEVICE_ID = os.getenv("TELEMETRY_DEVICE_ID", "m5max-laptop-gpu0")
-DB_PATH = config.DB_DIR / "telemetry.duckdb"
-TEL_DIR = config.DATA_DIR / "telemetry"
+DB_PATH = config.TELEMETRY_DIR / "telemetry.duckdb"
+TEL_DIR = config.TELEMETRY_DIR
 PIDFILE = TEL_DIR / "collector.pid"
 LOGFILE = TEL_DIR / "collector.log"
 SERVER_LOG = config.DATA_DIR / "server.log"
@@ -93,12 +93,12 @@ class LedgerTail:
     def __init__(self, start_at_end: bool):
         self.offsets: dict[Path, int] = {}
         if start_at_end:
-            for p in config.RUNS_DIR.glob("llm-*.jsonl"):
+            for p in config.DATA_DIR.glob("*/runs/llm-*.jsonl"):
                 self.offsets[p] = p.stat().st_size
 
     def poll(self) -> list[dict]:
         rows = []
-        for p in config.RUNS_DIR.glob("llm-*.jsonl"):
+        for p in config.DATA_DIR.glob("*/runs/llm-*.jsonl"):
             off = self.offsets.get(p, 0)
             size = p.stat().st_size
             if size < off:

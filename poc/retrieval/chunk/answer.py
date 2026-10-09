@@ -61,7 +61,7 @@ async def answer_one(q: dict, hits: list[dict], max_tokens: int) -> dict:
             u[key] = u.get(key, 0) + out2["usage"].get(key, 0)
         out = {**out, "wall_s": out["wall_s"] + out2["wall_s"]}
     return {
-        "financebench_id": q["financebench_id"], "arm": "chunk", "answer": content, "truncated_retry": retried,
+        "qid": q["qid"], "arm": "chunk", "answer": content, "truncated_retry": retried,
         "thinking": THINKING,
         "retrieved": [{"doc_name": h["doc_name"], "page": h["page_start"], "page_end": h["page_end"],
                        "score": round(float(h["score"]), 4)} for h in hits],
@@ -81,7 +81,7 @@ async def run(qs: list[dict], hits: list[list[dict]], max_tokens: int, partial) 
                 partial.flush()
                 return r
             except Exception as e:  # server hiccup: back off and retry, then give up on this question
-                print(f"  {q['financebench_id']} attempt {attempt + 1} failed: {e!r}", flush=True)
+                print(f"  {q['qid']} attempt {attempt + 1} failed: {e!r}", flush=True)
                 await asyncio.sleep(30 * (attempt + 1))
         return None
     return [r for r in await asyncio.gather(*(safe(q, h) for q, h in zip(qs, hits))) if r]
@@ -104,10 +104,10 @@ def main() -> None:
     part = path.with_suffix(".partial.jsonl")
     done = {}
     if part.exists() and not a.fresh:
-        done = {r["financebench_id"]: r for r in map(json.loads, part.open())}
+        done = {r["qid"]: r for r in map(json.loads, part.open())}
     elif part.exists():
         part.unlink()
-    qs = [q for q in all_qs if q["financebench_id"] not in done]
+    qs = [q for q in all_qs if q["qid"] not in done]
     print(f"{len(done)} already answered, {len(qs)} to go", flush=True)
     t0 = time.perf_counter()
     hits = search([q["question"] for q in qs], k=a.k, table=a.table) if qs else []
@@ -115,8 +115,8 @@ def main() -> None:
     with part.open("a") as pf:
         new = asyncio.run(run(qs, hits, a.max_tokens, pf)) if qs else []
     wall = time.perf_counter() - t0
-    done.update({r["financebench_id"]: r for r in new})
-    rows = [done[q["financebench_id"]] for q in all_qs if q["financebench_id"] in done]
+    done.update({r["qid"]: r for r in new})
+    rows = [done[q["qid"]] for q in all_qs if q["qid"] in done]
     missing = len(all_qs) - len(rows)
     with path.open("w") as f:
         for r in rows:

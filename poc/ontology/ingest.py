@@ -244,7 +244,7 @@ def step_extract(only: list[str] | None = None, cache_only: bool = False) -> dic
     dpath = config.RUNS_DIR / "ontology-dev-ids.json"
     if dpath.exists():
         ids = set(json.loads(dpath.read_text()))
-        dev = {q["doc_name"] for q in data.questions() if q["financebench_id"] in ids}
+        dev = {q["doc_name"] for q in data.questions() if q["qid"] in ids}
     groups = sorted(pg.groupby("doc_name"), key=lambda kv: (kv[0] not in dev, kv[0]))
     for d, g in groups:
         if only and d not in only:
@@ -319,7 +319,7 @@ def embedder():
     global _EMB
     if _EMB is None:
         from sentence_transformers import SentenceTransformer
-        _EMB = SentenceTransformer(config.EMBED_MODEL, device="mps")
+        _EMB = SentenceTransformer(config.EMBED_MODEL, device=config.torch_device())
         _EMB.max_seq_length = 512
     return _EMB
 

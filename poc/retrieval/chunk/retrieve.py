@@ -9,7 +9,7 @@ DB_PATH = config.DB_DIR / "lancedb"
 @lru_cache
 def _model():
     from sentence_transformers import SentenceTransformer
-    m = SentenceTransformer(config.EMBED_MODEL, device="mps")
+    m = SentenceTransformer(config.EMBED_MODEL, device=config.torch_device())
     m.max_seq_length = 512
     return m
 
