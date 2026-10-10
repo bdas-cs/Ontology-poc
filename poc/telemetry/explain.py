@@ -28,10 +28,16 @@ TAG = "telemetry-explain"
 MAX_TOKENS = 200
 MAX_CHAIN = 10
 
+_PLATFORM = (
+    "an Apple M5 Max laptop (one GPU, 128 GB unified memory) serving a local LLM with mlx_lm.server "
+    "while batch jobs (document ingestion, embeddings on the GPU via PyTorch MPS, question answering) run on it"
+    if collector.BACKEND == "macmon" else
+    "one NVIDIA GPU server serving a local LLM with vLLM while batch jobs (document ingestion, "
+    "embeddings on the same GPU via PyTorch CUDA, question answering) run on it"
+)
+
 SYSTEM = (
-    "You are a site-reliability assistant for a one-device fleet: an Apple M5 Max laptop "
-    "(one GPU, 128 GB unified memory) serving a local LLM with mlx_lm.server while batch jobs "
-    "(document ingestion, embeddings on the GPU via PyTorch MPS, question answering) run on it. "
+    f"You are a site-reliability assistant for a one-device fleet: {_PLATFORM}. "
     "Deterministic rules flagged ONE telemetry window as an exception (see 'flags'). Using only the "
     "evidence given, state the most likely cause of the flagged condition. Do not claim anything the "
     "numbers contradict; a process whose cpu_pct is close to its cpu_pct_typical is background, not a "

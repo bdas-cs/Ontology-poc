@@ -109,7 +109,7 @@ def summarize() -> dict:
 
     summary = {
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
-        "device": "m5max-laptop-gpu0 (Apple M5 Max, 1 GPU) serving " + config.LLM_MODEL,
+        "device": f"{collector.DEVICE_ID} ({'Apple M5 Max' if collector.BACKEND == 'macmon' else 'NVIDIA'}, 1 GPU) serving {config.LLM_MODEL}",
         "collection": {"samples": col[0], "first": str(col[1]), "last": str(col[2]),
                        "minutes": round(col[3], 1), "sample_period_s": 1.0},
         "llm_requests_during_collection": [{"tag": t, "requests": n, "prompt_tokens": int(p), "completion_tokens": int(c)}

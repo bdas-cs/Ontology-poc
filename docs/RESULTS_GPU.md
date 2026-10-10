@@ -74,3 +74,7 @@ Droplet time from creation (~06:00 UTC) to the end of the run (~10:10 UTC) ≈ 4
 2. CUAD resolver: NULL contract fields became NaN via pandas → TypeError on every question, then
    4×90 s infra retries per question (~52 min lost). Fixed and retries limited to HTTP/OS errors
    (38379ac); the CUAD ontology arm was rerun from scratch.
+3. The telemetry explainer's system prompt and summary label were hard-coded for the Apple M5 Max,
+   so the 18 model-written explanations on the B300 were produced with the wrong platform described.
+   Avoidance counts and rule-derived fields are unaffected; the prompt now follows the detected
+   backend.
