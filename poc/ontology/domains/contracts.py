@@ -293,7 +293,10 @@ def step_extract(pg: pd.DataFrame, only: list[str] | None = None, cache_only: bo
 
 # ================================================================== query: 1. resolve the contract
 def _contracts() -> list[dict]:
-    return ro().execute("SELECT id, label, filer, contract_type, filing_date, title FROM contract").df().to_dict("records")
+    # fetchall, not .df(): pandas turns NULL into NaN, which is truthy and not a str
+    cur = ro().execute("SELECT id, label, filer, contract_type, filing_date, title FROM contract")
+    cols = [d[0] for d in cur.description]
+    return [dict(zip(cols, r)) for r in cur.fetchall()]
 
 
 def match_contracts(question: str) -> list[tuple[float, dict]]:

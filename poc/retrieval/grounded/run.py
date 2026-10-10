@@ -21,6 +21,8 @@ import os
 import random
 import time
 
+import httpx
+
 from poc import config, data
 from poc.retrieval.grounded import pipeline
 
@@ -65,14 +67,18 @@ async def run(qs: list[dict], arm: str, out_path, plan_thinking: bool, seed: int
             await _one(q)
 
     async def _one(q):
+        r, err = None, None
         for attempt in range(4):  # infra retries: the supervised server restarts after a Metal crash (~1 min)
             try:
                 r = await pipeline.answer(q["question"], plan_thinking=plan_thinking)  # question text only
                 break
-            except Exception as e:
+            except (httpx.HTTPError, OSError) as e:  # infra only; code errors fail fast below
                 err = e
                 await asyncio.sleep(90)
-        else:
+            except Exception as e:
+                err = e
+                break
+        if r is None:
             e = err
             r = {"answer": f"(pipeline error: {type(e).__name__}: {e})", "resolved": {"company": None, "filings": []},
                  "sql": None, "records_used": [], "pages_used": [], "wall_s": None, "prompt_tokens": 0,
