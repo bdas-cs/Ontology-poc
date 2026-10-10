@@ -18,11 +18,16 @@ from poc import config
 MAX_INFLIGHT = int(os.getenv("LLM_MAX_INFLIGHT", "16"))
 _sem: asyncio.Semaphore | None = None
 _client: httpx.AsyncClient | None = None
+_loop: asyncio.AbstractEventLoop | None = None
 
 
 def _get() -> tuple[asyncio.Semaphore, httpx.AsyncClient]:
-    global _sem, _client
-    if _sem is None:
+    """Per-event-loop semaphore and client: a process that calls asyncio.run() more than once
+    (e.g. `ontology.ingest all`) must not reuse connections bound to a closed loop."""
+    global _sem, _client, _loop
+    loop = asyncio.get_running_loop()
+    if _sem is None or _loop is not loop:
+        _loop = loop
         _sem = asyncio.Semaphore(MAX_INFLIGHT)
         _client = httpx.AsyncClient(timeout=1800, limits=httpx.Limits(max_connections=MAX_INFLIGHT * 2))
     return _sem, _client
