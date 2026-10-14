@@ -1,26 +1,40 @@
-# Ontology POC — "Grounded on a laptop"
+# Ontology-grounded retrieval for a self-hosted LLM
 
-Local test-and-learn companion to *More Cognition per Dollar*. Runs on an
-M5 Max (128 GB) with a self-hosted open model; Claude is used only as the judge.
+Code for a study of where a self-hosted open model's answer accuracy comes from: ontology-grounded
+retrieval versus chunk RAG, with the model's reasoning mode matched, on four document benchmarks.
+The answering model is the open Qwen3.6-35B-A3B; Claude is used only as the judge (and to generate
+the Bharat questions).
 
-**Headline question (paper §9):** does ontology-grounded retrieval recover the
-8-point accuracy gap when the answering model is the self-hosted
-Qwen3.6-35B-A3B instead of a hosted model?
+**Study 1 (1× NVIDIA B300, vLLM, FP8), strict accuracy, Claude judge:**
 
-| Retrieval | Model | Strict (paper) | Strict (this POC) |
-|---|---|---|---|
-| Ontology-grounded | hosted | 93 | — |
-| Chunk RAG | hosted | 73 | — |
-| Chunk RAG | Qwen3.6-35B (self-hosted) | 65 | **60.7** (70.7 expanded; k=32: 62.7) |
-| Chunk RAG + reasoning on (control) | Qwen3.6-35B (self-hosted) | — | **71.3** (77.3 expanded) |
-| Ontology-grounded (reasoning on) | Qwen3.6-35B (self-hosted) | not measured | **75.3** (84.0 expanded; held-out 130: 75.4) |
+| Benchmark | Chunk RAG | Chunk RAG + reasoning | Ontology-grounded | Ontology − reasoning-matched chunk (95% CI) |
+|---|---|---|---|---|
+| FinanceBench (150) | 58.7 | 70.0 | **82.0** | +12.0 [+4.7, +20.0], p = 0.004 |
+| DocFinQA (300) | 34.0 | 42.3 | **52.3** | +10.0 [+4.7, +15.0], p < 0.001 |
+| CUAD (300) | 77.3 | 77.3 | **82.7** | +5.3 [+1.7, +9.0], p = 0.007 |
+| Bharat (150) | 76.0 | 80.0 | **84.7** | +4.7 [−4.0, +13.3], p = 0.35 |
 
-Claude judge (`claude-opus-5-5`), n=150, same 84-filing corpus for both arms.
-Paired exact McNemar (strict): ontology vs chunk (reasoning off) 40/18, p=0.005; chunk reasoning on vs off 21/5, p=0.002;
-**ontology vs chunk, both reasoning on 23/17, p=0.43**; metric questions only 9/1, p=0.021.
-By type (strict, chunk off → chunk on → ontology): metrics 56→80→96, domain 60→66→72, novel 66→68→58.
-Reading: ~10.6 of the 14.6-point gain is reasoning; structure adds ~4 overall (n.s.) and 16 on metric questions (significant).
-Reproduce the control with `make chunk-thinking && make judge ARMS=chunk-think`.
+Paired exact McNemar tests and bootstrap intervals over questions (`poc.eval.stats`). Study 2 (Apple M5
+Max, MLX 8-bit) replicates FinanceBench: 60.7 / 71.3 / 75.3. Full results, repeats, the chunk-size
+ablation, throughput, cost and a hand audit of the judge: [docs/RESULTS_GPU.md](docs/RESULTS_GPU.md).
+Figures: `scripts/make_figures.py` → [docs/figures/](docs/figures/).
+
+## Reproduce
+
+1. **Install and configure** (Quickstart below): `cp .env.example .env`, add `ANTHROPIC_API_KEY`
+   for the judge, `make setup`.
+2. **Answer** on a GPU server (see [docs/GPU.md](docs/GPU.md)): `make setup model`, `make serve-gpu`,
+   then `scripts/gpu_run.sh financebench docfinqa cuad bharat` (downloads data, builds the indexes and
+   ontologies, runs the three arms, repeats and the throughput sweep; resumable). On Apple silicon use
+   `make serve` and the per-step make targets instead.
+3. **Judge and test** (any machine with the API key):
+   `make judge DATASET=<name> ARMS="chunk chunk-think ontology"`, then
+   `POC_DATASET=<name> uv run python -m poc.eval.stats chunk chunk-think ontology`.
+   For results copied back from a server, prefix both with `POC_RUNS_SUBDIR=runs-gpu`.
+4. **Cost and figures:** `make cost`, `uv run --no-project --with matplotlib python scripts/make_figures.py`.
+
+Bharat has no questions of its own; `make qgen-bharat` generates them with Claude (about $4). They are
+not distributed with this repository because the source documents carry no blanket licence.
 
 ## Stack
 - **LLM:** `mlx-community/Qwen3.6-35B-A3B-8bit` via `mlx_lm.server` (OpenAI-compatible, :8091 — 8080 is taken by Docker);
@@ -45,7 +59,7 @@ Select with `DATASET=<name>` on any make target (exported as `POC_DATASET`); eac
 Raw data, parsed pages and run outputs stay outside the repo and are never committed.
 
 ## Run on a GPU
-The same pipelines run on a rented NVIDIA H100 with vLLM (`Qwen/Qwen3.6-35B-A3B-FP8`):
+The same pipelines run on a rented NVIDIA GPU (H100 or B300) with vLLM (`Qwen/Qwen3.6-35B-A3B-FP8`):
 `make serve-gpu` + `scripts/gpu_run.sh` on the server, `make pull-results HOST=<ip>` back on
 the Mac (into `runs-gpu/`, never over Mac results), judging stays on the Mac.
 Step-by-step DigitalOcean runbook, costs and caveats: [docs/GPU.md](docs/GPU.md).
@@ -71,3 +85,8 @@ make serve                # terminal 1
 make smoke                # terminal 2
 make sweep
 ```
+
+## Licence
+Code: [MIT](LICENSE). The licence covers this repository's code only. The datasets keep their own
+licences (table above; FinanceBench is non-commercial, Bharat documents are research use only), and
+no dataset content is included here.

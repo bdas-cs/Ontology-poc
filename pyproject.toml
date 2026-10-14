@@ -1,6 +1,7 @@
 [project]
 name = "ontology-poc"
 version = "0.1.0"
+license = "MIT"
 description = "POC: ontology-grounded vs chunk RAG with a self-hosted open model (Apple silicon via MLX, NVIDIA via vLLM)"
 requires-python = ">=3.12,<3.13"
 dependencies = [
