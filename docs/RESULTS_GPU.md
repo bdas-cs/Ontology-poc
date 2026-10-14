@@ -78,3 +78,11 @@ Droplet time from creation (~06:00 UTC) to the end of the run (~10:10 UTC) ≈ 4
    so the 18 model-written explanations on the B300 were produced with the wrong platform described.
    Avoidance counts and rule-derived fields are unaffected; the prompt now follows the detected
    backend.
+
+## Judge audit (2026-10-14)
+
+First author hand-audited 80 Study 1 verdicts (20 per benchmark, seeded; 10 judged correct and 10
+judged wrong per benchmark, at most 4 of each per arm). Agreement with the Claude judge: 80/80 on
+strict and 80/80 on expanded (exact 95% CI 95.5–100% overall; 83.2–100% per benchmark). With the 12
+Study 2 verdicts audited earlier: 92/92. The audit was not blind (the judge's verdict was shown).
+Answers: `~/ontology-poc-data/judge-audit/judge-audit-answers.csv` (Mac only; contains Bharat ids).
